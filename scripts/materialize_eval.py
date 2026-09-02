@@ -4,11 +4,33 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+
+
+def isolated_git_environment() -> dict[str, str]:
+    """Return an environment without caller-selected Git repository state."""
+
+    environment = os.environ.copy()
+    discovery_environment = {
+        name: value
+        for name, value in environment.items()
+        if not name.startswith("GIT_")
+    }
+    local_variables = subprocess.run(
+        ["git", "rev-parse", "--local-env-vars"],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=discovery_environment,
+    ).stdout.splitlines()
+    for name in local_variables:
+        environment.pop(name, None)
+    return environment
 
 
 def materialize(scenario_directory: Path, destination: Path) -> str:
@@ -26,27 +48,37 @@ def materialize(scenario_directory: Path, destination: Path) -> str:
     if destination == REPOSITORY_ROOT or REPOSITORY_ROOT in destination.parents:
         raise ValueError("destination must be outside the Rebuild Labs checkout")
 
+    git_environment = isolated_git_environment()
     shutil.copytree(fixture, destination)
     subprocess.run(
         ["git", "init", "--quiet", "--initial-branch=main"],
         cwd=destination,
         check=True,
+        env=git_environment,
     )
     subprocess.run(
         ["git", "config", "user.name", "rebuild-labs-eval"],
         cwd=destination,
         check=True,
+        env=git_environment,
     )
     subprocess.run(
         ["git", "config", "user.email", "eval@rebuild-labs.invalid"],
         cwd=destination,
         check=True,
+        env=git_environment,
     )
-    subprocess.run(["git", "add", "."], cwd=destination, check=True)
+    subprocess.run(
+        ["git", "add", "."],
+        cwd=destination,
+        check=True,
+        env=git_environment,
+    )
     subprocess.run(
         ["git", "commit", "--quiet", "-m", "Materialize evaluation fixture"],
         cwd=destination,
         check=True,
+        env=git_environment,
     )
     revision = subprocess.run(
         ["git", "rev-parse", "HEAD"],
@@ -54,6 +86,7 @@ def materialize(scenario_directory: Path, destination: Path) -> str:
         check=True,
         capture_output=True,
         text=True,
+        env=git_environment,
     ).stdout.strip()
     if len(revision) != 40:
         raise RuntimeError("materialized repository did not produce a full revision")

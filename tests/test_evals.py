@@ -1,17 +1,47 @@
 from __future__ import annotations
 
 import json
+import os
 import runpy
 import subprocess
 import sys
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 SCENARIOS_ROOT = ROOT / "evals/scenarios"
 VALIDATE = runpy.run_path(str(ROOT / "scripts/validate_evals.py"))["validate"]
-MATERIALIZE = runpy.run_path(str(ROOT / "scripts/materialize_eval.py"))["materialize"]
+MATERIALIZER = runpy.run_path(str(ROOT / "scripts/materialize_eval.py"))
+MATERIALIZE = MATERIALIZER["materialize"]
+ISOLATED_GIT_ENVIRONMENT = MATERIALIZER["isolated_git_environment"]
+GIT_REPOSITORY_REDIRECTS = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE")
+
+
+def _plain_git_environment() -> dict[str, str]:
+    return {
+        name: value for name, value in os.environ.items() if not name.startswith("GIT_")
+    }
+
+
+def test_isolated_git_environment_strips_every_local_git_variable(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    local_variables = subprocess.run(
+        ["git", "rev-parse", "--local-env-vars"],
+        check=True,
+        capture_output=True,
+        text=True,
+        env=_plain_git_environment(),
+    ).stdout.splitlines()
+    assert local_variables
+    for name in local_variables:
+        monkeypatch.setenv(name, "caller-selected")
+
+    isolated = ISOLATED_GIT_ENVIRONMENT()
+
+    assert set(local_variables).isdisjoint(isolated)
 
 
 def test_evaluation_schemas_are_valid_draft_2020_12() -> None:
@@ -178,6 +208,117 @@ def test_materializer_refuses_existing_destination(tmp_path: Path) -> None:
         pass
     else:
         raise AssertionError("materializer accepted an existing destination")
+
+
+@pytest.mark.parametrize("redirect", GIT_REPOSITORY_REDIRECTS)
+def test_materializer_ignores_git_repository_redirects(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    redirect: str,
+) -> None:
+    scenario = SCENARIOS_ROOT / "complete-plugin-pivot"
+    victim = tmp_path / "victim"
+    victim.mkdir()
+    git_environment = _plain_git_environment()
+    subprocess.run(
+        ["git", "init", "--quiet", "--initial-branch=main"],
+        cwd=victim,
+        check=True,
+        env=git_environment,
+    )
+    subprocess.run(
+        ["git", "config", "user.name", "victim"],
+        cwd=victim,
+        check=True,
+        env=git_environment,
+    )
+    subprocess.run(
+        ["git", "config", "user.email", "victim@example.invalid"],
+        cwd=victim,
+        check=True,
+        env=git_environment,
+    )
+    (victim / "victim.txt").write_text("preserve me\n", encoding="utf-8")
+    subprocess.run(
+        ["git", "add", "victim.txt"],
+        cwd=victim,
+        check=True,
+        env=git_environment,
+    )
+    subprocess.run(
+        ["git", "commit", "--quiet", "-m", "Victim baseline"],
+        cwd=victim,
+        check=True,
+        env=git_environment,
+    )
+    victim_head = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=victim,
+        check=True,
+        capture_output=True,
+        text=True,
+        env=git_environment,
+    ).stdout.strip()
+    victim_config = (victim / ".git/config").read_bytes()
+    victim_index = (victim / ".git/index").read_bytes()
+
+    redirect_values = {
+        "GIT_DIR": victim / ".git",
+        "GIT_WORK_TREE": victim,
+        "GIT_INDEX_FILE": victim / ".git/index",
+    }
+    monkeypatch.setenv(redirect, str(redirect_values[redirect]))
+    destination = tmp_path / "materialized"
+
+    revision = MATERIALIZE(scenario, destination)
+
+    assert (destination / ".git").is_dir()
+    assert (
+        revision
+        == subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=destination,
+            check=True,
+            capture_output=True,
+            text=True,
+            env=git_environment,
+        ).stdout.strip()
+    )
+    assert (
+        subprocess.run(
+            ["git", "status", "--short"],
+            cwd=destination,
+            check=True,
+            capture_output=True,
+            text=True,
+            env=git_environment,
+        ).stdout
+        == ""
+    )
+    assert (
+        subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=victim,
+            check=True,
+            capture_output=True,
+            text=True,
+            env=git_environment,
+        ).stdout.strip()
+        == victim_head
+    )
+    assert (victim / ".git/config").read_bytes() == victim_config
+    assert (victim / ".git/index").read_bytes() == victim_index
+    assert (
+        subprocess.run(
+            ["git", "status", "--short"],
+            cwd=victim,
+            check=True,
+            capture_output=True,
+            text=True,
+            env=git_environment,
+        ).stdout
+        == ""
+    )
 
 
 def test_every_fixture_is_runnable_after_materialization(tmp_path: Path) -> None:
