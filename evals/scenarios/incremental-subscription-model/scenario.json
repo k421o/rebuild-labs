@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "incremental-subscription-model",
+  "target_capability": "rebuild-plan",
+  "fidelity": "local_git",
+  "network_policy": "denied",
+  "task": "This released subscription service must move from one subscription embedded in each customer to independently owned subscriptions while retaining its accepted service boundary, v1 API, and identifiers. Decide whether rebuilding is warranted, select construction and transition strategies, separate baselines, classify assets, and propose the first safe slice. Do not implement or migrate data.",
+  "fixture": "fixture",
+  "scorecard": "scorecard.json"
+}

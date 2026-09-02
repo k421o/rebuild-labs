@@ -1,0 +1,20 @@
+{
+  "name": "rebuild-labs",
+  "interface": {
+    "displayName": "Rebuild Labs"
+  },
+  "plugins": [
+    {
+      "name": "rebuild-labs",
+      "source": {
+        "source": "local",
+        "path": "./products/codex-plugin/rebuild-labs"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

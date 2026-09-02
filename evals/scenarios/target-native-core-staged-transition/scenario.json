@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "target-native-core-staged-transition",
+  "target_capability": "rebuild-plan",
+  "fidelity": "local_git",
+  "network_policy": "denied",
+  "task": "This live authorization service must replace its role-table core with a relationship-based policy engine while preserving its stable decision API. Decide the change class, target construction strategy, transition strategy, and first safe vertical. Do not implement, route traffic, or migrate policy data.",
+  "fixture": "fixture",
+  "scorecard": "scorecard.json"
+}

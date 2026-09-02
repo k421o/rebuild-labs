@@ -1,0 +1,4 @@
+interface:
+  display_name: "Incremental Rebuild"
+  short_description: "Replace legacy architecture slice by slice."
+  default_prompt: "Use $rebuild-incremental to rebuild this project in verified slices while it remains usable."

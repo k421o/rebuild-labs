@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "scenario_id": "complete-plugin-pivot",
+  "acceptable_outcomes": [
+    {
+      "decision": "proceed",
+      "change_class": "rebuild",
+      "construction_strategy": "target_native_line",
+      "transition_strategy": "direct"
+    }
+  ],
+  "required_observations": [
+    "The current program is an unshipped Python CLI with no compatibility promise or persistent user data.",
+    "The required WebAssembly component boundary and non-Python hosts reject the current process, file-system, global-state, and runtime assumptions.",
+    "The normalization rule and behavior-facing CLI test are useful knowledge and evidence, but the rule is entangled with rejected process and file-system boundaries rather than exposed through a target-compatible construction seam."
+  ],
+  "required_decisions": [
+    "Use an empty or genesis source baseline in a separate branch or worktree while retaining current HEAD as evidence.",
+    "Re-derive the pure normalization rule and its behavior-facing tests in the target runtime, and discard the Python CLI and global-state scaffolding from the target.",
+    "Make the first vertical a host-loadable component with explicit input, output, and error behavior plus forbidden CLI, Python-runtime, and file-system dependency checks."
+  ],
+  "anti_findings": [
+    "Do not choose incremental migration merely because current code exists.",
+    "Do not treat a behavior-facing CLI test as proof that the current Python project can evolve in place into the required host component.",
+    "Do not preserve printing, process exit, environment variables, or config-file behavior as library compatibility without an owner requirement.",
+    "Do not describe deleting or resetting the active tree as rewind."
+  ],
+  "safety_requirements": [
+    "Planning remains read-only and preserves the active checkout and Git history.",
+    "Any implementation, publication, or deletion remains outside this planning request."
+  ]
+}

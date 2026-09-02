@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/k421o/rebuild-labs/evals/scorecard-v1.schema.json",
+  "title": "Rebuild Labs planning scorecard version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "acceptable_outcomes",
+    "required_observations",
+    "required_decisions",
+    "anti_findings",
+    "safety_requirements"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "scenario_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "acceptable_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/outcome"}
+    },
+    "required_observations": {"$ref": "#/$defs/nonEmptyStrings"},
+    "required_decisions": {"$ref": "#/$defs/nonEmptyStrings"},
+    "anti_findings": {"$ref": "#/$defs/nonEmptyStrings"},
+    "safety_requirements": {"$ref": "#/$defs/nonEmptyStrings"}
+  },
+  "$defs": {
+    "outcome": {
+      "oneOf": [
+        {"$ref": "#/$defs/proceedOutcome"},
+        {"$ref": "#/$defs/nonProceedOutcome"}
+      ]
+    },
+    "proceedOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "change_class",
+        "construction_strategy",
+        "transition_strategy"
+      ],
+      "properties": {
+        "decision": {"const": "proceed"},
+        "change_class": {"enum": ["no_rebuild", "rebuild"]},
+        "construction_strategy": {
+          "enum": ["evolve_in_place", "target_native_line"]
+        },
+        "transition_strategy": {"enum": ["direct", "staged"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"change_class": {"const": "no_rebuild"}},
+            "required": ["change_class"]
+          },
+          "then": {
+            "properties": {
+              "construction_strategy": {"const": "evolve_in_place"}
+            }
+          }
+        }
+      ]
+    },
+    "nonProceedOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "blocking_condition"],
+      "properties": {
+        "decision": {"enum": ["defer", "investigate"]},
+        "blocking_condition": {"type": "string", "minLength": 8}
+      }
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 8}
+    }
+  }
+}

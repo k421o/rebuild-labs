@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "unclear-direction-investigate",
+  "target_capability": "rebuild-plan",
+  "fidelity": "local_git",
+  "network_policy": "denied",
+  "task": "Should we start this project over? The code feels limiting and the next version should be more flexible. Assess what to do, but do not edit the repository or invent a product direction.",
+  "fixture": "fixture",
+  "scorecard": "scorecard.json"
+}

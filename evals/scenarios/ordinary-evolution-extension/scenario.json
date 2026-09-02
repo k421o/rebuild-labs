@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "ordinary-evolution-extension",
+  "target_capability": "rebuild-plan",
+  "fidelity": "local_git",
+  "network_policy": "denied",
+  "task": "The owner has changed this reporting library from JSON-only output to supporting both JSON and CSV. Decide whether this is a rebuild, how any target construction or transition should be classified, and what the smallest implementation plan is. Do not edit the repository.",
+  "fixture": "fixture",
+  "scorecard": "scorecard.json"
+}

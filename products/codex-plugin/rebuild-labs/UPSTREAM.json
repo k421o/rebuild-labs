@@ -1,0 +1,26 @@
+{
+  "artifact_kind": "codex_plugin_adapter",
+  "generated_by": "scripts/build_plugin.py",
+  "maturity": "experimental",
+  "product_version": "0.1.0-dev.1",
+  "sources": [
+    {
+      "destination": "skills/rebuild-plan",
+      "source": "capabilities/rebuild-plan",
+      "source_revision": "f3afc01102156b40d87382aed07b3eb9aec4ab6f",
+      "source_sha256": "a354cb428c654b1b196077769d0cd89f22d24418e14760d757b8a78cb920777a"
+    },
+    {
+      "destination": "skills/rebuild-complete",
+      "source": "capabilities/rebuild-complete",
+      "source_revision": "f3afc01102156b40d87382aed07b3eb9aec4ab6f",
+      "source_sha256": "f33718a2c0ed47d4b1a5cdb00890414f86902db966819528b42d3aaac7e9f91e"
+    },
+    {
+      "destination": "skills/rebuild-incremental",
+      "source": "capabilities/rebuild-incremental",
+      "source_revision": "f3afc01102156b40d87382aed07b3eb9aec4ab6f",
+      "source_sha256": "124664f965f535a4ef6a9b9fedc31a38e17c05883e343c4a636b9a1471455201"
+    }
+  ]
+}
