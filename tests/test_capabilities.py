@@ -1,0 +1,73 @@
+from __future__ import annotations
+
+import re
+from pathlib import Path
+
+import yaml
+
+ROOT = Path(__file__).resolve().parents[1]
+CAPABILITIES_ROOT = ROOT / "capabilities"
+CAPABILITY_NAMES = ("rebuild-plan", "rebuild-complete", "rebuild-incremental")
+
+
+def frontmatter(path: Path) -> dict[str, object]:
+    body = path.read_text(encoding="utf-8")
+    match = re.match(r"\A---\n(.*?)\n---\n", body, flags=re.DOTALL)
+    assert match is not None, f"missing YAML frontmatter: {path}"
+    parsed = yaml.safe_load(match.group(1))
+    assert isinstance(parsed, dict)
+    return parsed
+
+
+def test_capability_set_is_explicit() -> None:
+    assert {path.name for path in CAPABILITIES_ROOT.iterdir()} == set(CAPABILITY_NAMES)
+
+
+def test_capabilities_have_named_interfaces_and_metadata() -> None:
+    for name in CAPABILITY_NAMES:
+        directory = CAPABILITIES_ROOT / name
+        metadata = frontmatter(directory / "SKILL.md")
+        interface = (directory / "INTERFACE.md").read_text(encoding="utf-8")
+        openai = yaml.safe_load(
+            (directory / "agents/openai.yaml").read_text(encoding="utf-8")
+        )
+
+        assert metadata["name"] == name
+        assert isinstance(metadata["description"], str)
+        assert len(metadata["description"]) >= 120
+        assert "Named user job" in interface
+        assert "Output contract" in interface
+        assert "Exclusions" in interface
+        assert f"${name}" in openai["interface"]["default_prompt"]
+
+
+def test_capability_trigger_boundaries_do_not_overlap_silently() -> None:
+    plan = (CAPABILITIES_ROOT / "rebuild-plan/SKILL.md").read_text(encoding="utf-8")
+    complete = (CAPABILITIES_ROOT / "rebuild-complete/SKILL.md").read_text(
+        encoding="utf-8"
+    )
+    incremental = (
+        CAPABILITIES_ROOT / "rebuild-incremental/SKILL.md"
+    ).read_text(encoding="utf-8")
+
+    assert "Planning is read-only by default" in plan
+    assert "Confirm that the user requested implementation" in complete
+    assert "Confirm implementation is requested" in incremental
+    assert "use rebuild-plan" in complete.split("---", 2)[1]
+    assert "use rebuild-plan" in incremental.split("---", 2)[1]
+
+
+def test_implementation_skills_consume_all_shared_plan_sources() -> None:
+    references = sorted((CAPABILITIES_ROOT / "rebuild-plan/references").glob("*.md"))
+    assert len(references) == 4
+    for name in ("rebuild-complete", "rebuild-incremental"):
+        skill = (CAPABILITIES_ROOT / name / "SKILL.md").read_text(encoding="utf-8")
+        assert "read every file" in skill
+        assert "../rebuild-plan/references/" in skill
+
+
+def test_capabilities_have_no_scaffold_placeholders() -> None:
+    for path in CAPABILITIES_ROOT.rglob("*.md"):
+        text = path.read_text(encoding="utf-8")
+        assert "TODO" not in text
+        assert "TBD" not in text

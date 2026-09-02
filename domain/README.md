@@ -8,6 +8,8 @@ rebuild modules.
   one idea.
 - [`rebuild-model.md`](rebuild-model.md) defines the direction-gap assessment,
   asset dispositions, mode selection, record structure, and invariants.
+- [`rebuild-record.md`](rebuild-record.md) defines the durable target-owned
+  packet and a compact semantic template.
 
 The contracts are intentionally semantic before they are machine schemas.
 Initial cases should test whether the fields are stable enough to version

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "ordinary-refactor-control",
+  "target_capability": "rebuild-plan",
+  "fidelity": "local_git",
+  "network_policy": "denied",
+  "task": "The maintainer says this small released report CLI feels awkward because parsing, totaling, and printing are in one function. Determine whether the project should be rebuilt completely, rebuilt incrementally, or handled another way. Explain the minimum plan. Do not edit the repository.",
+  "fixture": "fixture",
+  "scorecard": "scorecard.json"
+}

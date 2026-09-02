@@ -1,5 +1,10 @@
 # Rebuild packet template
 
+This agent-facing template is derived from the canonical semantic record at
+`domain/rebuild-record.md` in Rebuild Labs. It is repeated inside the
+capability so an installed skill can produce a complete packet without a source
+checkout; changes originate in the domain record and are projected here.
+
 Use this as a semantic template. Omit inapplicable sections with a reason rather
 than leaving placeholders, and split the record only when the project needs
 separate review or ownership.

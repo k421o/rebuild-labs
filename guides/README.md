@@ -50,7 +50,7 @@ Small projects can keep these sections in one rebuild record. Large projects
 may split them while retaining explicit links and one current status view.
 
 Use the [documentation guide](decision-records.md) and the
-[rebuild packet template](../capabilities/rebuild-plan/references/rebuild-packet-template.md)
+[rebuild record template](../domain/rebuild-record.md)
 to create the packet without turning past architecture into current policy.
 
 ## Common asset decision

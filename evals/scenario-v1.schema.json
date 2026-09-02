@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/k421o/rebuild-labs/evals/scenario-v1.schema.json",
+  "title": "Rebuild Labs evaluation scenario version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "target_capability",
+    "fidelity",
+    "network_policy",
+    "task",
+    "fixture",
+    "scorecard"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "target_capability": {
+      "enum": ["rebuild-plan", "rebuild-complete", "rebuild-incremental"]
+    },
+    "fidelity": {"const": "local_git"},
+    "network_policy": {"enum": ["denied", "read_only"]},
+    "task": {"type": "string", "minLength": 20},
+    "fixture": {"const": "fixture"},
+    "scorecard": {"const": "scorecard.json"}
+  }
+}

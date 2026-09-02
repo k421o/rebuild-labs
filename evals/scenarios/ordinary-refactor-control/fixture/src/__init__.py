@@ -1,0 +1,1 @@
+"""Ordinary-refactor control fixture."""

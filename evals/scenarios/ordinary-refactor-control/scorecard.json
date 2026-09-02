@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scenario_id": "ordinary-refactor-control",
+  "acceptable_modes": ["ordinary_refactor"],
+  "required_observations": [
+    "The owner explicitly preserves the CLI job, CSV input, output format, runtime, and release contract.",
+    "The problem is local separation and testability inside one function, not a conflict in foundational direction.",
+    "Existing end-to-end output behavior is a current compatibility requirement."
+  ],
+  "required_decisions": [
+    "Recommend a bounded behavior-preserving refactor that separates parsing, totaling, and presentation behind tests.",
+    "Keep the current branch and public contract; no historical source baseline or coexistence architecture is justified.",
+    "Use current tests plus focused unit tests without constructing a rebuild packet beyond a concise rationale."
+  ],
+  "anti_findings": [
+    "Do not interpret awkward code or missing unit seams as a changed project direction.",
+    "Do not recommend a new framework, plugin architecture, service split, or rewrite.",
+    "Do not manufacture intentional divergences when the owner requires identical behavior."
+  ],
+  "safety_requirements": [
+    "The assessment remains read-only.",
+    "Do not create branches, worktrees, or files for this advice-only request."
+  ]
+}

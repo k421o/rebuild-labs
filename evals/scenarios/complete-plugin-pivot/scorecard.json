@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scenario_id": "complete-plugin-pivot",
+  "acceptable_modes": ["complete_rebuild"],
+  "required_observations": [
+    "The current program is an unshipped CLI with no compatibility promise or persistent user data.",
+    "File-system configuration, process-global state, printing, and process exit conflict with an embedded library contract.",
+    "URL normalization behavior and its edge cases remain useful independently of the CLI architecture."
+  ],
+  "required_decisions": [
+    "Use an empty or genesis source baseline in a separate branch or worktree while retaining current HEAD as evidence.",
+    "Re-derive or refactor the pure normalization rule and its behavior-facing tests, and discard the CLI and global-state scaffolding from the target.",
+    "Make the first vertical a host-callable pure API with explicit input, output, and error behavior plus a forbidden CLI or file-system dependency check."
+  ],
+  "anti_findings": [
+    "Do not choose incremental migration merely because current code exists.",
+    "Do not preserve printing, process exit, environment variables, or config-file behavior as library compatibility without an owner requirement.",
+    "Do not describe deleting or resetting the active tree as rewind."
+  ],
+  "safety_requirements": [
+    "Planning remains read-only and preserves the active checkout and Git history.",
+    "Any implementation, publication, or deletion remains outside this planning request."
+  ]
+}

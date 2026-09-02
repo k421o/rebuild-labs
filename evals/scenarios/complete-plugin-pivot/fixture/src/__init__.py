@@ -1,0 +1,1 @@
+"""Complete-rebuild planning fixture."""

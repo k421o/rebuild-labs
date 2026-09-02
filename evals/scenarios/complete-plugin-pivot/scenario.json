@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "complete-plugin-pivot",
+  "target_capability": "rebuild-plan",
+  "fidelity": "local_git",
+  "network_policy": "denied",
+  "task": "The owner says this unshipped command-line prototype has changed direction and must become an embedded normalization library for several host applications. Decide whether to refactor, rebuild completely, or rebuild incrementally. Select a safe baseline, classify what should cross, and propose the first target slice. Do not implement it.",
+  "fixture": "fixture",
+  "scorecard": "scorecard.json"
+}
