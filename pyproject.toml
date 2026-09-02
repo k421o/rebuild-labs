@@ -1,0 +1,32 @@
+[project]
+name = "rebuild-labs"
+version = "0.1.0.dev0"
+description = "Validation tooling for the Rebuild Labs domain and capabilities"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{name = "Karlton Suits"}]
+dependencies = [
+  "markdown-it-py>=4,<5",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4,<10",
+  "pyyaml>=6.0,<7",
+  "ruff>=0.12,<1",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

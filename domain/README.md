@@ -1,0 +1,14 @@
+# Rebuild domain
+
+This directory owns the shared vocabulary and decision model used by both
+rebuild modules.
+
+- [`glossary.md`](glossary.md) defines the terms that prevent direction,
+  history, baselines, compatibility, and implementation from collapsing into
+  one idea.
+- [`rebuild-model.md`](rebuild-model.md) defines the direction-gap assessment,
+  asset dispositions, mode selection, record structure, and invariants.
+
+The contracts are intentionally semantic before they are machine schemas.
+Initial cases should test whether the fields are stable enough to version
+before JSON structure is treated as canonical.
