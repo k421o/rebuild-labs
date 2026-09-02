@@ -1,30 +1,37 @@
 # Project rebuilding guide
 
 This guide turns the shared [rebuild decision model](../domain/rebuild-model.md)
-into two implementation modules. Start here even when the desired mode seems
-obvious: the same direction, baseline, behavior, asset, and authority questions
-govern both paths.
+into two implementation modules. Start here even when the desired strategy
+seems obvious: the same direction, architecture, baseline, behavior, asset,
+and authority questions govern both paths.
 
 ## Fast orientation
 
-1. Capture the current direction before implementation detail reshapes it.
-2. Separate required continuity from behavior that merely exists today.
-3. Pin source, evidence, compatibility, and target baselines.
-4. Classify assets individually, including knowledge separately from code.
-5. Choose how the target is constructed and how consumers transition.
-6. Build one target-native vertical slice.
-7. Verify target fit, required continuity, intentional divergence, and absence
+1. Capture the owner-selected direction before implementation detail reshapes
+   it.
+2. Record target architecture as a separately authored hypothesis or accepted
+   contract, plus the exact authorized implementation unit and phase.
+3. Decide whether the existing architecture can support the direction without
+   a rebuild.
+4. Separate required continuity from behavior that merely exists today.
+5. Pin source, evidence, compatibility, and target baselines.
+6. Classify assets individually, including knowledge separately from code.
+7. Choose construction and transition independently.
+8. Build one target-aligned vertical slice within the authorized phase.
+9. Verify target fit, required continuity, intentional divergence, and absence
    of forbidden legacy dependencies.
-8. Cut over and retire only under explicit authority.
+10. Cut over, mutate data, contract schemas, and retire only under authority
+    for each action.
 
 ## Select a module
 
-| Architectural discontinuity | Continuity need | Starting recommendation |
-| --- | --- | --- |
-| Low | Any | Use an ordinary refactor unless stronger evidence appears. |
-| Moderate | High | [Incremental rebuild](incremental-rebuild.md) through one reliable seam. |
-| High | Low or manageable | [Complete rebuild](complete-rebuild.md) on an isolated implementation line. |
-| High | High | Build a complete target core, then use incremental cutover around it. |
+| Situation | Construction | Transition | Module path |
+| --- | --- | --- | --- |
+| Changed direction, current boundary supports it | Evolve in place | Direct or staged | No rebuild; use ordinary evolution. |
+| Same direction and contract, internal structure changes | Evolve in place | Direct | No rebuild; use ordinary refactoring. |
+| Material conflict with a reliable seam | Evolve in place | Staged | [Incremental rebuild](incremental-rebuild.md). |
+| Material conflict, independent target is clearer | Target-native line | Direct | [Complete rebuild](complete-rebuild.md). |
+| Material conflict, independent target plus continuity need | Target-native line | Staged | Complete construction, then [incremental transition](incremental-rebuild.md). |
 
 This table is a diagnostic, not a numerical score. Hidden consumers, data
 irreversibility, seam quality, compliance, release obligations, and team
@@ -35,14 +42,20 @@ capacity can change the recommendation.
 Before sustained implementation, the target repository should own a packet
 containing:
 
-- target charter and superseded assumptions;
+- direction contract and superseded assumptions;
+- target architecture hypothesis or accepted contract, with its author and
+  decision state;
+- implementation authorization for the current unit and phase;
 - baseline record and dirty-state inventory;
-- behavior matrix: preserve, intentionally change, remove, or unresolved;
+- behavior matrix with separate evidence, target-action, origin, and authority
+  axes;
 - target responsibilities, dependency direction, and forbidden inheritances;
 - asset disposition ledger;
-- rebuild-unit and mode map;
+- per-unit decision, change class, construction strategy, and transition
+  strategy;
 - slices, gates, and evidence locations;
-- data, consumer, coexistence, cutover, recovery, and retirement plan; and
+- action-local authority for data, consumer, coexistence, cutover, recovery,
+  schema contraction, and retirement work; and
 - decision log with observation, hypothesis, owner-decision, implementation,
   verification, cutover, retirement, and supersession states.
 
@@ -70,7 +83,9 @@ verified continuity, understandable dependency direction, and safe transition.
 
 ## Completion standard
 
-A rebuild is not complete because the new tree builds. Completion requires:
+A construction phase is not complete because the new tree builds, and a
+rebuild is not complete because construction has finished. Full completion
+requires:
 
 - the accepted target path serves its intended consumers;
 - required behavior and data invariants have matched verification;
@@ -80,5 +95,7 @@ A rebuild is not complete because the new tree builds. Completion requires:
 - exact revisions and migration evidence are recorded; and
 - residual risks and rollback or forward-recovery limits are visible.
 
-The [complete](complete-rebuild.md) and
-[incremental](incremental-rebuild.md) modules define mode-specific evidence.
+An authorized phase may instead end successfully as `implemented_not_cut_over`
+or `cutover_ready`. The [complete](complete-rebuild.md) and
+[incremental](incremental-rebuild.md) modules define strategy-specific evidence
+and stopping states.

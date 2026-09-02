@@ -2,10 +2,10 @@
 
 ## Named user job
 
-Given a project whose direction may have changed materially, distinguish a
-rebuild from ordinary refactoring, select complete or incremental rebuilding
-per bounded unit, and produce a safe evidence-backed plan for what to preserve,
-change, re-derive, quarantine, or discard.
+Given a project whose direction may have changed materially, determine whether
+rebuilding is warranted, separate construction from transition per bounded
+unit, and produce a safe evidence-backed plan for what to preserve, change,
+re-derive, quarantine, or discard.
 
 ## Inputs
 
@@ -17,16 +17,21 @@ change, re-derive, quarantine, or discard.
 
 ## Output contract
 
-- Establish target direction and its decision state before using current
+- Establish the direction contract and its decision state before using current
   architecture as planning input.
+- Keep target architecture authorship, acceptance, and implementation
+  authorization distinct from owner direction.
 - Identify material direction gaps and distinguish observed behavior from
   required continuity.
 - Separate source, evidence, compatibility, and target baselines.
 - Produce asset-level implementation and knowledge dispositions with evidence,
   confidence, and unresolved authority.
-- Recommend ordinary refactor, complete rebuild, incremental rebuild, a named
-  combination, defer, or investigation per bounded unit.
-- Define an initial target-native vertical, verification gates, safe transition,
+- Allow ordinary evolution and other no-rebuild paths, or recommend change
+  class, construction, and transition independently per bounded unit.
+- Keep no-rebuild and unresolved outputs proportionate; do not require rebuild
+  baselines, full asset inventory, or transition machinery to reject a rebuild.
+- For a rebuild, define an initial target-aligned vertical—target-native when
+  construction uses a separate line—plus verification gates, safe transition,
   retirement conditions, and residual risks.
 - Report only actions and checks actually performed.
 
@@ -38,9 +43,10 @@ universal architecture, or preservation of every observed behavior. It does
 not cover compilation, disaster recovery, or routine refactoring under an
 unchanged direction.
 
-## Compatibility
+## Stability
 
-Version 1 freezes the intent-first assessment, four-baseline distinction,
-asset-level disposition, per-unit mode decision, and read-only default. The
-record format remains a draft until evaluation cases demonstrate a stable
-machine-checkable schema.
+This version is a draft and makes no compatibility promise. The intent-first
+assessment, four-baseline distinction, asset-level disposition, independent
+strategy decision, and read-only planning default are the current evaluation
+subjects. Promotion requires evidence from held-out cases and an explicit
+interface decision.

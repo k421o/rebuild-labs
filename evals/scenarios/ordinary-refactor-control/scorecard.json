@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
   "scenario_id": "ordinary-refactor-control",
-  "acceptable_modes": ["ordinary_refactor"],
+  "acceptable_outcomes": [
+    {
+      "decision": "proceed",
+      "change_class": "no_rebuild",
+      "construction_strategy": "evolve_in_place",
+      "transition_strategy": "direct"
+    }
+  ],
   "required_observations": [
     "The owner explicitly preserves the CLI job, CSV input, output format, runtime, and release contract.",
     "The problem is local separation and testability inside one function, not a conflict in foundational direction.",

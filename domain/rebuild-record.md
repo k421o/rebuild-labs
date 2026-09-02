@@ -11,11 +11,14 @@ current index retains the relationships and states.
 The record must distinguish:
 
 - owner direction from agent inference;
+- owner direction from an agent-authored target architecture hypothesis;
+- target-architecture acceptance from implementation authorization;
 - current implementation from target architecture;
 - observed behavior from required compatibility;
 - source, evidence, compatibility, and target baselines;
 - implementation disposition from knowledge disposition;
-- planned, implemented, verified, cut-over, and retired state;
+- `planned`, `implemented_not_cut_over`, `verified`, `cutover_ready`,
+  `cut_over`, `retired`, `invalidated`, and `superseded` state;
 - code transition from data and consumer transition; and
 - a reversible code selection from externally irreversible effects.
 
@@ -31,23 +34,30 @@ distinctions.
 - Repository and current revision:
 - Working-tree and external-state note:
 - Record status and date:
-- Direction owner:
+- Direction owner and decision state:
+- Architecture author and decision state:
 - Acceptance owner:
+- Authorized implementation unit and phase:
 - Actions outside current authority:
 
-### Direction brief
+### Direction contract
 
 - Changed outcome:
 - New or removed constraints:
 - Required continuity:
 - Intentional incompatibilities:
 - Non-goals:
-- Target responsibilities and ownership:
-- Target dependency direction:
-- Forbidden inheritances:
 - Acceptance conditions:
 - Unresolved owner questions:
 - Superseded decisions:
+
+### Target architecture
+
+- Hypothesis or accepted-contract state:
+- Target responsibilities and ownership:
+- Target dependency direction:
+- Forbidden inheritances:
+- Competing hypotheses and discriminating evidence:
 
 ### Direction-gap map
 
@@ -65,13 +75,18 @@ Fit is `aligned`, `isolatable`, `conflicting`, `obsolete`, or `unknown`.
 | Compatibility | | | |
 | Target | | | |
 
+Use `not_applicable` for Source when construction is `evolve_in_place` or the
+change class is `no_rebuild`; keep the current line in Evidence.
+
 ### Behavior matrix
 
-| Behavior | Evidence | Target state | Authority | Verification |
-| --- | --- | --- | --- | --- |
+| Behavior | Evidence | Evidence state | Target action | Origin interpretation | Authority state | Verification |
+| --- | --- | --- | --- | --- | --- | --- |
 
-Target state is required continuity, permitted continuity, intentional
-divergence, remove, unresolved, or unknown.
+Evidence state is `observed`, `inferred`, or `unknown`. Target action is
+`preserve_required`, `preserve_optional`, `change`, `remove`, or `unresolved`.
+Origin interpretation is `intentional`, `accidental`, or `unknown`. Evidence
+and origin do not select the target action; its authority must be recorded.
 
 ### Asset disposition ledger
 
@@ -82,18 +97,26 @@ Implementation is salvage, refactor, re-derive, quarantine, or discard.
 Knowledge is current contract, test/oracle, rationale, historical evidence, or
 no special retention.
 
-### Mode map
+### Transformation map
 
-| Rebuild unit | Mode | Why | Rejected alternative | First vertical |
-| --- | --- | --- | --- | --- |
+| Unit | Decision | Change class | Construction | Transition | Why | Rejected alternative | First vertical |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
-Mode is complete rebuild, incremental rebuild, ordinary refactor, defer, or
-investigate. A combined project names the mode of each unit.
+Decision is `proceed`, `defer`, or `investigate`. When proceeding, change class
+is `no_rebuild` or `rebuild`; construction is `evolve_in_place` or
+`target_native_line`; and transition is `direct` or `staged`. Leave strategies
+unselected with an explicit blocking condition when deferring or investigating.
+For `no_rebuild`, name the ordinary path: evolution, refactor, modernization,
+or upgrade.
 
 ### Execution and verification
 
-| Slice | Target outcome | Dependencies | Target gate | Continuity or divergence gate | Legacy retirement |
-| --- | --- | --- | --- | --- | --- |
+| Unit and phase | Authorized scope | Success boundary | Target gate | Continuity or divergence gate | Stop threshold | Recovery action and authority | State |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
+State may include `planned`, `implemented_not_cut_over`, `verified`,
+`cutover_ready`, `cut_over`, `retired`, `invalidated`, or `superseded`. A phase
+can finish positively without receiving permission to perform the next one.
 
 ### Transition
 
@@ -102,9 +125,23 @@ investigate. A combined project names the mode of each unit.
 - Coexistence contract:
 - Temporary architecture ledger:
 - Observation and stop signals:
+- Pre-authorized recovery actions and limits:
 - Rollback or forward-recovery boundary:
-- Cutover authority:
+- Authority for deployment:
+- Authority for traffic or consumer movement:
+- Authority for external data writes, backfill, and reconciliation:
+- Authority for stopping old writes:
+- Authority for schema contraction:
+- Authority for code and external-resource deletion:
 - Retirement conditions:
+
+### Source-line delta intake
+
+- Live-line change owner and review cadence:
+- Critical fixes and new obligations since source selection:
+- Evidence invalidated by those changes:
+- Selective intake decisions:
+- Transition freeze window, if any:
 
 ### Decision log
 
@@ -124,5 +161,5 @@ investigate. A combined project names the mode of each unit.
 
 The target repository owns the record. Rebuild Labs may retain a sanitized
 case interpretation but not a second live project plan. Update the living
-status as work advances, keep consequential decisions immutable, and link
-superseding decisions rather than rewriting their predecessors.
+status as work advances. Retain accepted decision context and link superseding
+decisions rather than silently rewriting their predecessors.

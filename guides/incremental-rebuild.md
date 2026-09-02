@@ -2,21 +2,26 @@
 
 ## Purpose
 
-Use an incremental rebuild when the target direction changes foundational
-architecture but service continuity, data custody, consumer migration, or
-valuable stable boundaries make in-place staged replacement safer than a
-single new implementation line and cutover.
+Use the incremental module when a rebuild needs evolve-in-place construction,
+staged transition, or both. Service continuity, data custody, consumer
+migration, or valuable stable boundaries may make bounded coexistence safer
+than one cutover. The target may be built behind a seam in the current project
+or supplied by a target-native line created through the complete module.
 
 Incremental rebuilding is not endless refactoring. Each slice is governed by a
-target architecture, receives traffic or ownership deliberately, and has an
-explicit condition for extinguishing the legacy path it replaces.
+target architecture and has an explicit route, authority boundary, and
+condition for extinguishing the legacy path it replaces. A code-only phase can
+finish before traffic or ownership moves.
 
 ## Entry conditions
 
 Establish that:
 
-- a current target charter identifies the changed direction and required
-  continuity;
+- a current direction contract identifies the changed outcome, constraints,
+  allowed breaks, and required continuity;
+- a separately authored target architecture hypothesis or accepted contract
+  defines the target-facing boundary;
+- the implementation unit and current phase are authorized;
 - one or more inherited boundaries conflict with it materially;
 - a seam can route a bounded responsibility, consumer, request class, data
   access, or workflow;
@@ -25,22 +30,25 @@ Establish that:
 - temporary routing, compatibility, data duplication, and observation have
   owners and a bounded lifetime.
 
-If there is no material direction discontinuity, use ordinary refactoring. If
-every useful seam preserves the rejected architecture and continuity is
-manageable elsewhere, build a complete target core and transition to it.
+If a changed direction is already supported by the architecture, use ordinary
+evolution. If direction and external contract are unchanged, use ordinary
+refactoring. If every useful seam preserves rejected concepts, build a complete
+target core first and use this module only for staged transition.
 
 ## Phase 1: establish target and topology
 
 1. Record owner direction, required continuity, intentional divergences,
-   non-goals, and acceptance authority.
-2. Pin current, release, historical, and consumer evidence revisions.
-3. Inventory dirty work, deployments, data stores, queues, identities,
+   non-goals, acceptance authority, and decision state.
+2. Separately record the target-architecture author, hypothesis or accepted
+   state, implementation authorization, and actions that require other grants.
+3. Pin current, release, historical, and consumer evidence revisions.
+4. Inventory dirty work, deployments, data stores, queues, identities,
    protocols, clients, scheduled jobs, operators, and failure recovery.
-4. Draw current flows and state ownership using observed behavior rather than
+5. Draw current flows and state ownership using observed behavior rather than
    class or directory names.
-5. Draw the target responsibilities, state ownership, dependency direction,
+6. Draw the target responsibilities, state ownership, dependency direction,
    and forbidden legacy dependencies independently.
-6. Map the gaps and identify where a routing or ownership seam can contain
+7. Map the gaps and identify where a routing or ownership seam can contain
    them.
 
 The target architecture must be visible before the migration map. Otherwise
@@ -69,14 +77,18 @@ through disguised names.
 ## Phase 3: define a vertical slice
 
 Choose the smallest slice that can demonstrate a meaningful target behavior
-and retire something real. Record:
+and name a credible retirement target and condition, even when retirement is a
+later phase. Record:
 
+- the exact authorized unit and phase;
+- the success boundary for this invocation;
 - target outcome and responsible boundary;
 - consumers or traffic included and excluded;
 - state read, written, migrated, or synchronized;
 - accepted prior behavior and intentional changes;
 - target acceptance evidence;
 - coexistence and observation method;
+- stop thresholds and the only recovery actions already authorized;
 - rollback or forward-recovery limit;
 - temporary artifacts introduced; and
 - the exact retirement condition for old code, routes, data, flags, and
@@ -93,9 +105,10 @@ When branch by abstraction or parallel change fits:
 2. Route existing behavior through it without changing observable results.
 3. Prove the preparatory move separately.
 4. Implement the target supplier or representation behind the contract.
-5. Move bounded consumers or data to the target path.
-6. Remove the legacy supplier and then any abstraction needed only for
-   transition.
+5. When separately authorized, move bounded consumers or data to the target
+   path.
+6. When separately authorized, remove the legacy supplier and then any
+   abstraction needed only for transition.
 
 The target side owns the enduring vocabulary. Legacy adapters translate at the
 edge. Avoid designing a “neutral” contract that is actually a union of every
@@ -108,7 +121,9 @@ For APIs and schemas, use expand → migrate → contract:
 - **Contract:** remove the deprecated representation after retirement gates
   pass.
 
-Contract is part of the rebuild, not optional cleanup.
+Contract is part of full rebuild completion, not optional cleanup. A code-only
+phase may stop successfully before contraction as `implemented_not_cut_over`
+or `cutover_ready`.
 
 ## Phase 5: handle data and writes explicitly
 
@@ -151,6 +166,24 @@ behavior matrix; do not automatically change the target to match legacy.
 Temporary architecture needs an owner, creation reason, observability, removal
 condition, and deadline or reevaluation trigger.
 
+## Action-local authority gates
+
+Target acceptance and implementation permission do not authorize transition.
+Check and record authority immediately before each bounded action:
+
+| Action | Required grant |
+| --- | --- |
+| Deploy a target artifact | Deployment authority for the named environment and revision |
+| Move traffic or a consumer | Routing or consumer-transition authority for that cohort |
+| Write, backfill, or reconcile external data | Data-mutation authority for the named store and operation |
+| Stop old writes or transfer canonical ownership | State-ownership authority for that partition |
+| Contract a schema or compatibility surface | Compatibility and schema-contraction authority |
+| Delete old code or external resources | Deletion authority for the exact targets |
+
+Without the grant, finish safe implementation and verification, mark the slice
+`implemented_not_cut_over` or `cutover_ready`, and stop. Never use “accepted”
+as shorthand for “authorized to retire.”
+
 ## Phase 7: verify and move the route
 
 Before increasing traffic or ownership, verify:
@@ -164,13 +197,19 @@ Before increasing traffic or ownership, verify:
 - operational telemetry distinguishes old and target paths; and
 - the stop or reversal procedure has been exercised in proportion to risk.
 
-Move one bounded cohort, observe for the declared window, and record actual
-evidence. “No alerts” is useful only when relevant alerts and traffic were
-confirmed.
+If the corresponding action is authorized, move one bounded cohort, observe
+for the declared window, and record actual evidence. “No alerts” is useful only
+when relevant alerts and traffic were confirmed.
+
+If a divergence, error, latency, data, or recovery threshold fails, stop
+expansion immediately. Preserve the observation, execute only the authorized
+recovery or route reversal, and mark the affected evidence or plan invalidated.
+Do not continue to the next cohort or retirement phase until the named decision
+owner re-plans or accepts an explicit exception.
 
 ## Phase 8: extinguish the old slice
 
-Once the retirement condition is accepted:
+Once the retirement condition is accepted **and each action is authorized**:
 
 1. Stop routing new work to the old path.
 2. End legacy writes and ownership.
@@ -220,8 +259,11 @@ hide a migration that never transfers ownership.
 
 ## Exit conditions
 
-The incremental module exits for a slice when target consumers and state use
-the accepted path, the corresponding legacy path is retired, temporary
-architecture is removed, and evidence is linked from the rebuild record. The
-project exits the overall rebuild when every planned slice is complete or each
-remaining legacy island has been accepted as an intentional current boundary.
+The incremental module exits at the boundary of the authorized phase. A
+code-only phase can finish as `implemented_not_cut_over`; a verified transition
+plan can finish as `cutover_ready`. A fully transitioned slice additionally
+requires target consumers and state to use the accepted path, the corresponding
+legacy path to be retired, temporary architecture to be removed, and evidence
+to be linked from the rebuild record. The project exits the overall rebuild
+when every planned slice is complete or each remaining legacy island has been
+accepted as an intentional current boundary.

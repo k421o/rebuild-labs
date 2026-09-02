@@ -7,7 +7,8 @@ rebuild modules.
   history, baselines, compatibility, and implementation from collapsing into
   one idea.
 - [`rebuild-model.md`](rebuild-model.md) defines the direction-gap assessment,
-  asset dispositions, mode selection, record structure, and invariants.
+  asset dispositions, no-rebuild decision, independent construction and
+  transition selection, record structure, and invariants.
 - [`rebuild-record.md`](rebuild-record.md) defines the durable target-owned
   packet and a compact semantic template.
 

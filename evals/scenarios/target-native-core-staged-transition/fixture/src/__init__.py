@@ -1,0 +1,1 @@
+"""Combined-strategy planning fixture."""

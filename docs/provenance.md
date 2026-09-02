@@ -29,7 +29,8 @@ The first research synthesis draws from primary pattern authors, official
 platform guidance, and first-party engineering case studies. Its source
 companion records URLs, dates, supported claims, and limitations. These
 external sources motivate hypotheses; they do not ratify the initial skills or
-select a rebuild mode for another project.
+select a change class, construction strategy, or transition strategy for
+another project.
 
 No prior skill or repository content is imported as canonical rebuild guidance.
 Generated product copies, when present, are mechanical projections of the

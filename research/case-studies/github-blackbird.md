@@ -4,7 +4,7 @@ Sources:
 
 - GitHub, [A brief history of code search at
   GitHub](https://github.blog/engineering/a-brief-history-of-code-search-at-github/),
-  2021-12-15.
+  published 2021-12-15; updated 2024-07-23.
 - GitHub, [The technology behind GitHub's new code
   search](https://github.blog/engineering/the-technology-behind-githubs-new-code-search/),
   2023-02-06.
@@ -32,8 +32,8 @@ coverage, and implementation continued evolving.
 | --- | --- |
 | Direction gap | General text-search assumptions conflicted with code punctuation, regex, scale, and update needs. |
 | Knowledge disposition | Prior Git, Solr, Elasticsearch, exact-match, and open-source index experience informed the target. |
-| Construction mode | Complete bounded-subsystem implementation |
-| Transition mode | Preview and beta adoption rather than immediate universal replacement |
+| Construction strategy | Target-native implementation of a bounded subsystem; rollout was incomplete in the cited sources |
+| Transition strategy | Preview and beta adoption rather than immediate universal replacement |
 | Target baseline | Explicit search, latency, indexing, deletion, intelligence, and resource goals |
 | Scope | Code-search engine and experience, not all GitHub search or architecture |
 

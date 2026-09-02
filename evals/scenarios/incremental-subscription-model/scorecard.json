@@ -1,19 +1,28 @@
 {
   "schema_version": 1,
   "scenario_id": "incremental-subscription-model",
-  "acceptable_modes": ["incremental_rebuild", "combined_rebuild"],
+  "acceptable_outcomes": [
+    {
+      "decision": "proceed",
+      "change_class": "rebuild",
+      "construction_strategy": "evolve_in_place",
+      "transition_strategy": "staged"
+    }
+  ],
   "required_observations": [
     "The service is released, receives writes continuously, and has external v1 clients and durable identifiers.",
     "The one-subscription-per-customer data ownership assumption conflicts with the target one-to-many model.",
-    "The public API and subscription identifiers are compatibility baselines, while internal storage layout is not."
+    "The public API and subscription identifiers are compatibility baselines, while internal storage layout is not.",
+    "The accepted target retains the service process and data-access boundary and rejects a parallel service with duplicated identity and distributed write ownership."
   ],
   "required_decisions": [
-    "Introduce target subscription ownership behind a data-access or service seam and move an end-to-end slice rather than replacing all reads and writes at once.",
+    "Evolve the released service in place by introducing target subscription ownership behind a data-access seam and moving an end-to-end slice rather than replacing all reads and writes at once.",
     "Define canonical ownership, backfill, concurrent writes, idempotency, reconciliation, stop signals, and the actual rollback or forward-recovery window.",
-    "Plan expand, migrate, and contract phases that remove embedded subscription state and transition-only dual behavior after acceptance."
+    "Plan expand, migrate, and contract phases that remove embedded subscription state and transition-only dual behavior only after their separate acceptance and action-local authority gates."
   ],
   "anti_findings": [
     "Do not recommend a single big-bang data cutover because the target model is cleaner.",
+    "Do not recommend a parallel target service when the accepted architecture retains the current service boundary and rejects distributed write ownership.",
     "Do not treat a database backup or binary rollback as proof that writes can be reversed.",
     "Do not let dual writes or the v1 adapter become an unowned permanent architecture."
   ],

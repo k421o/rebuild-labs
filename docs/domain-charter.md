@@ -41,9 +41,11 @@ lost data, or rewriting code merely because it is old or unfamiliar.
 
 The domain may produce:
 
-- A vocabulary for direction discontinuities, baselines, rebuild modes,
-  compatibility commitments, seams, slices, and asset dispositions.
-- Rebuild records, disposition ledgers, target charters, decision logs,
+- A vocabulary for direction discontinuities, baselines, construction and
+  transition strategies, compatibility commitments, seams, slices, and asset
+  dispositions.
+- Rebuild records, disposition ledgers, direction contracts, target
+  architecture hypotheses and contracts, decision logs,
   verification matrices, and cutover or retirement plans.
 - Complete and incremental rebuild guides with practical sequencing and safety
   boundaries.
@@ -69,8 +71,9 @@ Rebuild Labs does not:
 - guarantee semantic equivalence when the owner has intentionally changed the
   product contract;
 - turn all observed behavior into a compatibility requirement;
-- authorize destructive Git operations, deployment, data deletion, consumer
-  cutover, public release, or archival on behalf of a target owner;
+- authorize destructive Git operations, deployment, traffic or consumer
+  movement, external data mutation, stopping old writes, schema contraction,
+  deletion, public release, or archival on behalf of a target owner;
 - replace security, privacy, legal, data-governance, or incident-recovery
   review;
 - store working copies of target projects or become a central architecture
@@ -84,15 +87,18 @@ The intended stable middle consists of:
 
 1. A direction contract that separates current owner intent from inherited
    implementation assumptions.
-2. A baseline model that separates historical source, current evidence,
+2. A target-architecture model that keeps agent proposals, project acceptance,
+   and implementation authorization in distinct states.
+3. A baseline model that separates historical source, current evidence,
    released compatibility, and target acceptance.
-3. A rebuild decision that selects complete, incremental, ordinary refactor,
-   defer, or investigate further from evidence rather than fashion.
-4. An asset disposition model that can preserve knowledge without preserving
+4. A transformation decision that can proceed, defer, or investigate and, when
+   proceeding, selects `no_rebuild` or `rebuild`, construction, and transition
+   independently for each bounded unit.
+5. An asset disposition model that can preserve knowledge without preserving
    its current representation.
-5. A rebuild record linking decisions, slices, evidence, verification,
+6. A rebuild record linking decisions, slices, evidence, verification,
    cutover, retirement, and supersession over time.
-6. Safety and authority rules for isolated work, external state, destructive
+7. Safety and authority rules for isolated work, external state, destructive
    actions, and acceptance.
 
 Collectors, guides, evaluation runners, and product adapters may change while
@@ -102,8 +108,9 @@ preserving these contracts or versioning their replacements.
 
 Evidence is interpreted according to the claim it can support:
 
-1. **Current owner direction** authorizes desired outcomes, constraints,
-   intentional incompatibilities, and acceptance decisions for its scope.
+1. **Current owner direction** authorizes desired outcomes, constraints, and
+   intentional incompatibilities and names acceptance conditions and authority
+   for its scope.
 2. **Normative external contracts** establish constraints from platforms,
    protocols, laws, consumers, and published compatibility promises.
 3. **Executable and repository evidence** establishes what a pinned revision
@@ -126,17 +133,37 @@ scope, authority role, and important uncertainty.
 
 Records distinguish at least these states:
 
-1. **Observation** — pinned evidence about current or historical behavior.
-2. **Hypothesis** — a proposed direction, disposition, or rebuild explanation.
-3. **Owner-ratified direction** — the affected owner selected the target for
-   the named scope.
-4. **Planned rebuild** — mode, baseline, dispositions, gates, and authority
-   boundaries are recorded.
-5. **Implemented slice** — code or configuration realizes part of the plan.
-6. **Verified slice** — named evidence meets its acceptance conditions.
-7. **Cut over** — intended consumers or traffic use the target path.
-8. **Retired** — the replaced path no longer owns live behavior or state.
-9. **Superseded** — a later record replaces the decision and links back to it.
+1. **Observation** (`observation`) — pinned evidence about current or
+   historical behavior.
+2. **Hypothesis** (`hypothesis`) — a proposed direction, disposition, or
+   rebuild explanation.
+3. **Owner-ratified direction** (`owner_ratified_direction`) — the affected
+   owner selected outcomes,
+   constraints, allowed breaks, and acceptance for the named scope.
+4. **Target-architecture hypothesis** (`target_architecture_hypothesis`) — a
+   technical proposal derived from the direction and evidence; it does not
+   acquire owner authority by being useful.
+5. **Accepted target architecture** (`target_architecture_accepted`) — the
+   relevant project authority accepted the proposal for a named scope; this
+   does not authorize implementation or transition by itself.
+6. **Implementation authorized** (`implementation_authorized`) — a named actor
+   may change the recorded unit and phase.
+7. **Planned rebuild** (`planned`) — construction, transition, baseline,
+   dispositions, gates, and authority boundaries are recorded.
+8. **Implemented, not cut over** (`implemented_not_cut_over`) — code or
+   configuration realizes an authorized phase without moving external
+   responsibility.
+9. **Verified slice** (`verified`) — named evidence meets its acceptance
+   conditions.
+10. **Cutover ready** (`cutover_ready`) — transition preconditions are
+    verified, but the action awaits its own authority or operating window.
+11. **Cut over** (`cut_over`) — intended consumers, traffic, writes, or
+    ownership use the target path under action-local authority.
+12. **Retired** (`retired`) — the replaced path no longer owns live behavior or
+    state.
+13. **Invalidated or superseded** (`invalidated`, `superseded`) — evidence,
+    direction, or a later record requires reassessment and retains the prior
+    context.
 
 A merged pull request, passing test, or agent-authored plan does not silently
 advance an owner-controlled state.
@@ -146,7 +173,8 @@ advance an owner-controlled state.
 `rebuild-labs` owns the editable rebuild-domain vocabulary, research
 interpretation, evaluation contracts, and canonical capability sources. Each
 target repository owns its direction, local architecture, implementation,
-acceptance, deployment, data, and deletion decisions.
+acceptance, deployment, traffic, consumer, data, schema, and deletion
+decisions.
 
 [`k421o/readme-labs`](https://github.com/k421o/readme-labs) is a structural
 reference for this domain-first repository shape; it is not evidence for
@@ -161,15 +189,17 @@ acquire the affected repositories' implementation authority.
 
 ## Change discipline
 
-- Freeze an independently readable target charter before deep implementation
-  inspection when practical, then record later discoveries as amendments.
+- Freeze an independently readable direction contract before deep
+  implementation inspection when practical. Record target architecture as a
+  separately authored hypothesis and later discoveries as explicit amendments.
 - Separate observed behavior from behavior the target must preserve.
 - Record disposition decisions per asset or coherent asset class; never label
   the whole old codebase “legacy” as if that decided its value.
 - Use pinned Git identities and content hashes where a conclusion depends on
   exact bytes.
-- Keep complete and incremental modules on one shared vocabulary while
-  evaluating their different failure modes separately.
+- Keep complete construction and incremental construction or transition on one
+  shared vocabulary while evaluating their different failure modes and their
+  same-unit composition separately.
 - Treat automated checks and agent evaluations as evidence. Owners or their
   designated reviewers retain promotion and acceptance authority.
 - Add infrastructure, schemas, product adapters, or repositories only after a

@@ -35,17 +35,21 @@ Rebuild Labs develops a middle discipline:
 | Module | Use it when | Governing idea |
 | --- | --- | --- |
 | [Complete rebuild](guides/complete-rebuild.md) | Foundational assumptions conflict with the target and carrying the existing structure forward costs more than selectively re-deriving it. | Start an isolated implementation line from a chosen historical or empty baseline, then import only target-compatible knowledge and assets. |
-| [Incremental rebuild](guides/incremental-rebuild.md) | The system must keep operating, valuable boundaries remain usable, or data and consumers require staged replacement. | Establish a target-owned seam, replace vertical slices, verify each transfer, and retire the corresponding legacy path. |
+| [Incremental rebuild](guides/incremental-rebuild.md) | A rebuild is warranted and the system must keep operating, valuable boundaries remain usable, or data and consumers require staged replacement. | Establish a target-owned seam, replace vertical slices, verify each transfer, and retire the corresponding legacy path. |
 
 Both modules consume the same [rebuild decision model](domain/rebuild-model.md).
-The model separates five questions that agents often collapse:
+The model separates eight questions that agents often collapse:
 
 1. What current direction has the owner actually selected?
-2. Which inherited assumptions no longer fit it?
-3. Which baseline makes the new direction easiest to realize and verify?
-4. Which assets should be salvaged, refactored, re-derived, quarantined, or
+2. Which target architecture is proposed or accepted, and by whom?
+3. Which inherited assumptions no longer fit it?
+4. Is rebuilding warranted at all?
+5. If so, should the target be constructed in place or on a target-native line,
+   and should transition be direct or staged?
+6. Which baseline makes the new direction easiest to realize and verify?
+7. Which assets should be salvaged, refactored, re-derived, quarantined, or
    discarded?
-5. What evidence will show that the new path works and that the old path can be
+8. What evidence will show that the new path works and that the old path can be
    retired?
 
 ## Repository model
@@ -54,7 +58,7 @@ The model separates five questions that agents often collapse:
 Owner direction + project evidence + history
                     |
                     v
-       direction gap and baseline analysis
+      direction / architecture / gap / baselines
                     |
                     v
      rebuild record + asset disposition ledger
@@ -74,14 +78,16 @@ Owner direction + project evidence + history
 ```
 
 The stable middle is the domain vocabulary, evidence rules, rebuild record,
-asset dispositions, and mode-selection boundaries. Guides and skills consume
-that core. Target repositories retain authority over their product direction,
-implementation, acceptance, deployment, and deletion decisions.
+asset dispositions, and strategy-selection boundaries. Guides and skills
+consume that core. Target repositories retain authority over their product
+direction, architecture acceptance, implementation, deployment, transition,
+data mutation, and deletion decisions.
 
 ## Core safeguards
 
 - A new direction must be explicit enough to distinguish a real architectural
-  discontinuity from frustration with difficult code.
+  discontinuity from frustration with difficult code. A real direction change
+  may still be ordinary evolution when the current architecture supports it.
 - “Rewind” means create an isolated branch or worktree at a pinned baseline;
   it never means destructively reset a user's working tree.
 - Dirty work, releases, data, credentials, and externally visible state are
@@ -94,13 +100,14 @@ implementation, acceptance, deployment, and deletion decisions.
 - A parallel implementation is not progress by itself. Incremental work pairs
   every new slice with a route, acceptance evidence, and a retirement condition
   for the path it replaces.
-- Cutover, deletion, publication, and irreversible data migration require the
-  target owner's authority; an agent-generated plan is not that authority.
+- Architecture acceptance, implementation, traffic movement, consumer change,
+  data writes, schema contraction, deletion, and publication are distinct
+  grants; an agent-generated plan is not any of them.
 
 ## Project layout
 
 ```text
-domain/         Rebuild vocabulary, records, dispositions, and mode selection
+domain/         Rebuild vocabulary, records, dispositions, and strategy selection
 research/       Findings, primary sources, case studies, and limitations
 guides/         Complete and incremental rebuild playbooks
 capabilities/   Canonical agent-facing projections of the domain work
@@ -117,15 +124,15 @@ for copies of projects being rebuilt.
 
 ## Initial capability bundle
 
-- `rebuild-plan` reconstructs current direction, identifies architectural
-  discontinuities, compares baselines and modes, and produces a disposition
-  ledger without changing the target by default.
+- `rebuild-plan` is the mandatory read-only gateway for undecided work. It
+  first decides whether rebuilding is warranted, then separates construction
+  and transition choices and produces a disposition ledger.
 - `rebuild-complete` implements an explicitly authorized complete rebuild in an
-  isolated line, transferring selected behavior and knowledge without treating
-  current structure as a template.
+  isolated target-native line, transferring selected behavior and knowledge
+  without treating current structure as a template.
 - `rebuild-incremental` implements an explicitly authorized staged rebuild
-  through target-owned seams, vertical slices, verification, and legacy-path
-  retirement.
+  through target-owned seams and vertical slices, or stages transition to a
+  target-native line built by `rebuild-complete`.
 
 The [domain charter](docs/domain-charter.md) defines scope and evidence rules.
 The [architecture](docs/architecture.md) defines authority and dependency
@@ -148,6 +155,7 @@ validation and product generation.
 uv sync --locked --dev
 uv run ruff check .
 uv run pytest
+uv run python scripts/validate_evals.py
 uv run python scripts/check_markdown_links.py
 uv run python scripts/build_plugin.py --check
 ```

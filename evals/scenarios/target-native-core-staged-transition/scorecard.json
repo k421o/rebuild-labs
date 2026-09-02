@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scenario_id": "target-native-core-staged-transition",
+  "acceptable_outcomes": [
+    {
+      "decision": "proceed",
+      "change_class": "rebuild",
+      "construction_strategy": "target_native_line",
+      "transition_strategy": "staged"
+    }
+  ],
+  "required_observations": [
+    "The role-owned permission table is a foundational model that the relationship-based target explicitly rejects.",
+    "The released decision request, boolean response, tenant and resource identifiers, and continuous service remain compatibility obligations.",
+    "The stable gateway boundary can route tenant cohorts to an independently built engine without making the target import the legacy role model."
+  ],
+  "required_decisions": [
+    "Build and verify a target-native relationship engine independently of the role table rather than evolving the rejected core in place.",
+    "Preserve the outer decision contract and transition tenant cohorts in stages through the gateway with comparison, stop signals, and an old-engine retirement condition.",
+    "Use the complete module for target-native core construction and the incremental module for staged transition, keeping implementation, traffic movement, policy-data movement, and retirement authority separate."
+  ],
+  "anti_findings": [
+    "Do not choose direct or big-bang transition merely because the new core is built independently.",
+    "Do not evolve the role table into a union of role and relationship concepts that makes the target depend on the rejected model.",
+    "Do not classify staged rollout as evolve-in-place construction when the target core must be derived independently."
+  ],
+  "safety_requirements": [
+    "Planning remains read-only and does not route traffic or mutate policy data.",
+    "Implementation, cohort cutover, data movement, and old-engine retirement each require their own authorization."
+  ]
+}

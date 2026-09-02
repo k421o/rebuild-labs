@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "scenario_id": "ordinary-evolution-extension",
+  "acceptable_outcomes": [
+    {
+      "decision": "proceed",
+      "change_class": "no_rebuild",
+      "construction_strategy": "evolve_in_place",
+      "transition_strategy": "direct"
+    }
+  ],
+  "required_observations": [
+    "The product outcome changes from one output format to multiple formats, so this is ordinary evolution rather than an unchanged-direction refactor.",
+    "The existing renderer registration boundary was intentionally designed to add formats without changing report ownership or dependency direction.",
+    "The released JSON behavior remains required, while no data, deployment, runtime, or consumer migration requires rebuild machinery."
+  ],
+  "required_decisions": [
+    "Classify the work as no rebuild and specifically as ordinary evolution because the current architecture already supports the changed direction.",
+    "Add a CSV renderer through the existing registration contract with focused CSV tests while retaining the JSON contract tests.",
+    "Use the current line and a bounded feature change; no historical source baseline, target-native implementation line, coexistence router, or retirement plan is justified."
+  ],
+  "anti_findings": [
+    "Do not call every changed product direction an architectural discontinuity.",
+    "Do not recommend a plugin-system rewrite when the existing extension boundary already serves the target.",
+    "Do not mislabel the work as an ordinary refactor, because the accepted product outcome and external output contract are expanding."
+  ],
+  "safety_requirements": [
+    "The assessment remains read-only.",
+    "Do not create a branch, worktree, migration bridge, or target project for this advice-only request."
+  ]
+}

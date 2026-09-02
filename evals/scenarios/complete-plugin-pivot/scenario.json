@@ -4,7 +4,7 @@
   "target_capability": "rebuild-plan",
   "fidelity": "local_git",
   "network_policy": "denied",
-  "task": "The owner says this unshipped command-line prototype has changed direction and must become an embedded normalization library for several host applications. Decide whether to refactor, rebuild completely, or rebuild incrementally. Select a safe baseline, classify what should cross, and propose the first target slice. Do not implement it.",
+  "task": "The unshipped Python bookmark-cleaning CLI must become a host-neutral WebAssembly URL-normalization component loaded by non-Python desktop and server hosts. Decide whether rebuilding is warranted, select construction and transition strategies, choose a source baseline, classify old assets, and propose the first target-native vertical. Do not implement anything.",
   "fixture": "fixture",
   "scorecard": "scorecard.json"
 }

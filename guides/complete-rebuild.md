@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Use a complete rebuild when the target direction rejects enough foundational
-assumptions that evolving the current tree would make those assumptions more
-expensive to remove. Build a new implementation line from an empty tree, the
-beginning of the project, or a selected stable point. Keep later history
-available as evidence and admit assets deliberately.
+Use complete-rebuild construction when the target direction rejects enough
+foundational assumptions that evolving the current tree would make those
+assumptions more expensive to remove. Build a target-native implementation
+line from an empty tree, the beginning of the project, or a selected stable
+point. Keep later history available as evidence and admit assets deliberately.
 
 “Complete” applies to architectural derivation. It does not require throwing
 away every asset, matching no prior behavior, hiding work on a long-lived
@@ -14,10 +14,13 @@ branch, or switching every consumer in one event.
 
 ## Entry conditions
 
-Before selecting this mode, establish that:
+Before selecting this construction strategy, establish that:
 
-- a current owner-ratified direction names the desired outcome and permitted
-  breaks;
+- a current owner-ratified direction contract names the desired outcome,
+  constraints, continuity, and permitted breaks;
+- the target architecture is an explicitly authored hypothesis or an accepted
+  contract rather than an unnamed extension of owner intent;
+- the implementation unit and current phase are authorized;
 - several material inherited assumptions conflict with that direction, or the
   current skeleton would dominate the new one through adapters;
 - a target-native vertical slice can be built and evaluated independently;
@@ -36,44 +39,65 @@ cutover around a complete target core.
 
 1. Read applicable project instructions and the explicit direction-change
    request.
-2. Record the target scope, decision owner, current decision state, acceptance
-   owner, and actions that still require separate approval.
+2. Record the target scope, direction owner and state, architecture author and
+   state, acceptance owner, authorized implementation unit and phase, and
+   actions that require separate authority.
 3. Inventory the active branch, remotes, releases, worktrees, uncommitted and
    untracked files, submodules, generated assets, large files, credentials,
    databases, deployments, and other externally visible state.
 4. Pin the current evidence revision and any relevant release or historical
    refs. Capture dirty state without exposing secrets when it bears on the
    rebuild.
-5. Create a new branch or worktree at the chosen source baseline. Never move,
-   reset, clean, or delete the active checkout to simulate a rewind.
+5. Materialize the chosen source baseline safely:
+
+   - for a historical Git ref, create a new branch in a separate worktree;
+   - for an empty tree, use a fresh isolated directory or repository, or create
+     an orphan line only inside a separately prepared worktree, and record how
+     it will integrate with the source repository; and
+   - for a non-Git project, create an immutable evidence snapshot and a
+     separate destination.
+
+   Never move, reset, clean, mass-delete, or orphan the active checkout to
+   simulate a rewind.
 
 This phase makes the old state recoverable and inspectable. It does not make
 all of it a compatibility obligation.
 
-## Phase 2: freeze the target model
+## Phase 2: freeze direction and propose the target model
 
-Before detailed source mining, draft:
+Before detailed source mining, keep two records distinct.
+
+The direction contract contains:
 
 - the user and operator outcomes;
-- core domain responsibilities and state ownership;
 - required interfaces, identities, data invariants, service levels, and
   external obligations;
 - intentional incompatibilities and removed jobs;
+- non-goals and acceptance conditions; and
+- the owner and decision state.
+
+The target architecture hypothesis contains:
+
+- core domain responsibilities and state ownership;
 - target dependency direction and forbidden legacy dependencies;
-- one smallest useful end-to-end target slice; and
-- evidence that would make the owner accept that slice.
+- one smallest useful end-to-end target slice;
+- alternatives and evidence that discriminate among them; and
+- its author and acceptance state.
 
-The target may be amended after implementation evidence reveals a real
-constraint. Every amendment should name the evidence and decision instead of
-quietly bending the new design around the old structure.
+The architecture may be revised after implementation evidence reveals a real
+constraint. The direction changes only through its own authority. Every
+amendment should name the evidence and decision instead of quietly bending the
+new design around the old structure.
 
-An optional anti-anchoring technique separates three passes:
+An optional anti-anchoring technique separates four passes:
 
 1. A direction pass receives current intent and external constraints but not
-   internal topology, and drafts the target contract.
-2. An archaeology pass receives that frozen contract and mines repository
+   internal topology, and drafts the direction contract.
+2. An architecture pass proposes target responsibilities and boundaries from
+   the direction without claiming owner authority.
+3. An archaeology pass receives those frozen artifacts and mines repository
    behavior, history, consumers, and assets.
-3. An integration pass challenges both legacy anchoring and impractical target
+4. An integration pass challenges both legacy anchoring and impractical target
    assumptions, then records any accepted amendment.
 
 This can be done by separate reviewers or by one agent with explicit context
@@ -100,20 +124,15 @@ newer. A stable point is relative to the reconstruction job.
 
 ## Phase 4: build the contract and asset quarry
 
-Inspect current and historical code after the target draft is visible. Build a
-behavior matrix with these states:
-
-- preserve as required continuity;
-- preserve if cheap and target-compatible;
-- intentionally change;
-- remove;
-- unresolved owner decision; or
-- unknown because evidence is insufficient.
-
-Use characterization, snapshot, approval, contract, or replay tests to capture
-observed behavior. Then label which observations are actual target or
-compatibility requirements. Never accept a golden master wholesale as the new
-specification.
+Inspect current and historical code after the target draft is visible. Use
+characterization, snapshot, contract, or replay tests to capture observed
+behavior. For each material behavior, record `evidence_state` as `observed`,
+`inferred`, or `unknown`; `target_action` as `preserve_required`,
+`preserve_optional`, `change`, `remove`, or `unresolved`; and
+`origin_interpretation` as `intentional`, `accidental`, or `unknown`. Record the
+authority for the target action. Evidence and origin do not decide which
+behaviors become target or compatibility requirements. Never accept a golden
+master wholesale as the new specification.
 
 Break the old system into small assets. Ask the re-entry questions for each:
 
@@ -151,7 +170,29 @@ Repeat by vertical value rather than old-module order. Porting `utils/`, then
 `models/`, then `services/` often reconstructs old layers before any target
 behavior can be judged.
 
-## Phase 6: verify compatibility and divergence
+At the start of each invocation, pin the currently authorized unit and phase,
+its success boundary, stop or recovery threshold, and conditions that
+invalidate the plan or require a different strategy. Finishing that boundary
+is a valid stopping point; it is not permission to implement every later
+vertical in the plan.
+
+## Phase 6: intake live-line deltas
+
+The evidence line may continue changing while the target line matures. At a
+recorded cadence and again before transition:
+
+1. Inspect critical fixes, security changes, new external obligations, data
+   changes, and consumer changes since source selection.
+2. Decide asset by asset whether to salvage, refactor, re-derive, quarantine,
+   discard, or amend the direction or architecture through its authority.
+3. Invalidate affected acceptance evidence and rerun it after selective
+   intake.
+4. Never merge the live line wholesale merely to become current; that can
+   reintroduce the architecture being replaced.
+5. Declare a bounded freeze window when transition risk requires one, with an
+   owner for emergency exceptions.
+
+## Phase 7: verify compatibility and divergence
 
 Use separate evidence streams:
 
@@ -168,7 +209,7 @@ Differential or shadow execution can compare deterministic behavior without
 routing user-visible writes to both systems. Investigate mismatches according
 to the behavior matrix rather than assuming the old answer is correct.
 
-## Phase 7: prepare transition
+## Phase 8: prepare transition
 
 A complete target may still need incremental transition. Prepare:
 
@@ -179,19 +220,29 @@ A complete target may still need incremental transition. Prepare:
 - rollback or forward-recovery window and what it can actually restore;
 - handling for writes during transition;
 - security and permission changes;
-- owner acceptance points; and
+- owner acceptance points and action-local authority for deployment, traffic
+  or consumer movement, external data writes and reconciliation, stopping old
+  writes, schema contraction, and deletion; and
 - legacy archive and retirement conditions.
 
 Exercise the smallest realistic rehearsal available. A build and unit suite do
 not prove cutover safety.
 
-## Phase 8: cut over and retire
+## Phase 9: cut over and retire
 
-Only perform cutover or destructive retirement when that action is explicitly
-authorized. Move bounded consumers or traffic, observe, reconcile, and stop on
-named failure signals. Record the actual result, not only the planned command.
+Only perform each external or destructive action when that action is explicitly
+authorized. Acceptance of the target is not cutover authority. Before moving
+traffic or consumers, writing or reconciling external data, stopping old
+writes, contracting a schema, or deleting code or resources, check the grant
+for that exact unit and phase. Record the actual result, not only the planned
+command.
 
-After acceptance:
+When a stop threshold fires, stop expansion, preserve evidence, and execute
+only the pre-authorized recovery action. Mark affected evidence or the plan
+invalidated and return to the deciding authority; do not continue rollout
+because the target implementation itself passed tests.
+
+After corresponding acceptance and action-local authorization:
 
 - stop legacy writes and ownership before deletion;
 - remove routes, bridges, flags, dual writes, and target constraints created
@@ -222,9 +273,11 @@ After acceptance:
 
 ## Exit conditions
 
-The complete module exits when the target implementation is accepted for its
-scope, required consumers and data have transitioned, legacy ownership is
-retired or explicitly retained, temporary architecture is removed, and the
-rebuild record points to verified evidence and residual limits. If only the
-new code exists, implementation may be complete while the rebuild remains in
-transition.
+The complete module exits at the boundary of the authorized phase. Valid states
+include `implemented_not_cut_over`, verified construction, and
+`cutover_ready`. Full rebuild completion additionally requires that accepted
+consumers and data have transitioned, legacy ownership is retired or
+explicitly retained, temporary architecture is removed, and the rebuild record
+points to verified evidence and residual limits. If staged transition remains,
+hand that phase to the incremental module without relabeling the target-native
+construction.

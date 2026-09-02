@@ -1,5 +1,9 @@
 # Asset disposition and re-entry gate
 
+> Derived projection. Canonical semantics live in steps 5 and 7 of
+> `domain/rebuild-model.md`. This installed copy is operational context;
+> changes originate in the domain model.
+
 Treat the existing project as a quarry of small assets, not one legacy block.
 Assets can include behavior, API and file-format contracts, domain rules,
 algorithms, data semantics, tests, fixtures, operational knowledge, decisions,
@@ -13,8 +17,8 @@ source code, configuration, and generated artifacts.
   target boundaries.
 - **Refactor:** preserve its responsibility or behavior while changing
   representation, coupling, or dependencies.
-- **Re-derive:** use verified knowledge or contract as input to a target-native
-  implementation without porting the old code structure.
+- **Re-derive:** use verified knowledge or contract as input to a new
+  target-aligned implementation without porting the old code structure.
 - **Quarantine:** retain outside the target path until provenance, safety,
   behavior, or authority is resolved.
 - **Discard:** exclude intentionally because no accepted target obligation
@@ -83,14 +87,14 @@ maximize retained code rather than target alignment.
 
 ## Behavior matrix
 
-Observed behavior receives one target state:
+Record independent axes for each material behavior:
 
-- `required_continuity`;
-- `permitted_continuity`;
-- `intentional_divergence`;
-- `remove`;
-- `unresolved`; or
-- `unknown`.
+- `evidence_state`: `observed`, `inferred`, or `unknown`;
+- `target_action`: `preserve_required`, `preserve_optional`, `change`,
+  `remove`, or `unresolved`;
+- `origin_interpretation`: `intentional`, `accidental`, or `unknown`; and
+- `authority_state`: source and decision state for the target action.
 
-Characterization evidence can establish the observation. It cannot choose the
-target state. Link that state to an owner decision or external obligation.
+Characterization evidence can establish an observation. It cannot choose the
+target action. An accidental origin is not automatic permission to remove, and
+unknown evidence does not require preservation.

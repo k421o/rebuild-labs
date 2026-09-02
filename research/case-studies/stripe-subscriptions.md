@@ -19,12 +19,12 @@ ramp-up limited load risk.
 
 | Model question | Case evidence |
 | --- | --- |
-| Direction gap | A cardinality and ownership assumption no longer fit product behavior. |
+| Direction gap | A one-subscription-per-customer cardinality assumption and co-located storage no longer fit product behavior. |
 | Continuity | API availability and data accuracy remained required. |
-| Mode | Incremental expand, migrate, and contract |
-| Seam | Old and new subscription storage and application read/write paths |
+| Construction and transition | Evolve in place through staged expand, migrate, and contract phases |
+| Controlled migration surfaces | Application read/write paths and old/new storage representations |
 | Temporary architecture | Dual writes and two synchronized representations |
-| Verification | Backfill audit, missing-object check, staged path movement, metrics |
+| Verification | Gradual dual-write metrics, offline missing-ID audit, [Scientist](https://github.com/github/scientist/blob/504a396e987f655a21c6bf2ed57935aadaa40859/README.md) production read comparison, and an explicit error on obsolete-field access |
 | Retirement | Old-data dependence removed after reads and writes moved |
 
 The case demonstrates why code and data transition cannot share one simple

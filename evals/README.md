@@ -1,17 +1,21 @@
 # Rebuild evaluation cases
 
-The initial evaluation set tests mode selection and planning behavior before it
-claims implementation quality. Each scenario has a fixture copied into an
+The initial evaluation set tests transformation selection and planning behavior
+before it claims implementation quality. Each scenario has a fixture copied into an
 isolated local Git repository and a scorecard that remains outside the agent's
 workspace.
 
 ## Initial cases
 
-| Scenario | Expected decision | Discriminating risk |
-| --- | --- | --- |
-| `complete-plugin-pivot` | Complete rebuild | Current CLI/file-system topology should not define a new embedded library, while one pure behavior remains useful. |
-| `incremental-subscription-model` | Incremental rebuild | A live API and persistent data require staged ownership transfer rather than an isolated big-bang replacement. |
-| `ordinary-refactor-control` | Ordinary refactor | Difficult internals without changed direction must not trigger rewrite enthusiasm. |
+| Scenario | Change class | Construction | Transition | Discriminating risk |
+| --- | --- | --- | --- | --- |
+| `complete-plugin-pivot` | Rebuild | Target-native line | Direct | A Python CLI/process topology cannot supply the required host-neutral WebAssembly component, while its normalization behavior remains useful evidence. |
+| `incremental-subscription-model` | Rebuild | Evolve in place | Staged | A live API, persistent data, and a viable service seam require staged ownership transfer without replacing a target-compatible service boundary. |
+| `incremental-code-only-boundary` | Rebuild | Evolve in place | Staged | Code-only authority must end positively before route, data, schema, or deletion actions. |
+| `ordinary-refactor-control` | No rebuild | Evolve in place | Direct | Difficult internals without changed direction must not trigger rewrite enthusiasm. |
+| `ordinary-evolution-extension` | No rebuild | Evolve in place | Direct | A changed product outcome already fits an intentional extension boundary and needs ordinary evolution, not a rebuild. |
+| `target-native-core-staged-transition` | Rebuild | Target-native line | Staged | A rejected internal model needs independent replacement, while a stable outer boundary and live consumers require staged transition. |
+| `unclear-direction-investigate` | Investigate | Unselected | Unselected | Vague dissatisfaction without a ratified changed outcome must stop before strategy selection or exhaustive archaeology. |
 
 These are synthetic planning cases. They establish testable behavior and
 anti-findings; they are not evidence that the skills improve real rebuilds.
@@ -23,7 +27,9 @@ Each scenario contains:
 - `scenario.json`: task, target capability, fidelity, network policy, fixture,
   and held-out scorecard location;
 - `fixture/`: the only files copied into the simulated target repository; and
-- `scorecard.json`: acceptable modes, required observations and decisions,
+- `scorecard.json`: acceptable transformation outcomes—either `proceed` with
+  change-class, construction, and transition fields or `defer`/`investigate`
+  with a blocking condition—plus required observations, decisions,
   anti-findings, and safety requirements kept outside the target.
 
 Validate the records and materialize one local Git fixture with:
@@ -44,8 +50,10 @@ independent semantic review confirms target fidelity and anti-findings.
 ## Evaluation dimensions
 
 - Intent fidelity and decision-state accuracy.
-- Correct distinction among complete, incremental, combined, and ordinary
-  refactor outcomes.
+- Correct classification of rebuild versus no rebuild, independently from
+  target construction and transition strategy.
+- Correct deferral or investigation when a strategy cannot yet be selected;
+  those are decision outcomes rather than change classes.
 - Separation of observed behavior from required compatibility.
 - Asset-level implementation and knowledge dispositions.
 - Target-native vertical and forbidden-inheritance checks.

@@ -2,7 +2,7 @@
 
 These studies interpret first-party accounts through the Rebuild Labs model.
 They demonstrate possible techniques and failure controls; they do not prove a
-universal mode choice.
+universal strategy choice.
 
 - [`react-fiber.md`](react-fiber.md): complete internal replacement with
   incremental development and rollout.

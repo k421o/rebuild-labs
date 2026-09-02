@@ -1,4 +1,4 @@
 interface:
   display_name: "Rebuild Planning"
   short_description: "Plan a direction-led project rebuild."
-  default_prompt: "Use $rebuild-plan to determine how this project should be rebuilt around its new direction."
+  default_prompt: "Use $rebuild-plan to determine whether rebuilding is warranted and, if so, which construction and transition strategies fit."

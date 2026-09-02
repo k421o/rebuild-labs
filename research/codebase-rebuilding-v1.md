@@ -1,6 +1,7 @@
 # Direction-change codebase rebuilding, initial synthesis
 
-Status: **exploratory synthesis**  
+Status: **exploratory synthesis**
+
 As of: **2026-09-02**
 
 ## Question
@@ -32,12 +33,12 @@ Legacy Displacement likewise treats outcomes and business process as the
 starting point, warning that technology-only replacement and full feature
 parity can reproduce obsolete constraints.
 
-Operational implication: require a direction brief and assumption-gap map. A
+Operational implication: require a direction contract and assumption-gap map. A
 new language, untidy code, low coverage, or unfamiliar design is not itself a
 direction discontinuity. Conversely, code can be well engineered for its prior
 job and still be wrong for the new one.
 
-### 2. Construction mode and transition mode are independent
+### 2. Construction strategy and transition strategy are independent
 
 React Fiber completely rewrote React internals while developing old and new
 renderers side by side and rolling the new path out gradually. GitHub built a
@@ -70,17 +71,19 @@ observation, removal condition, and reevaluation point.
 
 ### 4. Current behavior is evidence, not the target specification
 
-Characterization, snapshot, approval, and differential tests can make unknown
+Characterization, snapshot, and differential tests can make unknown
 behavior visible. React reused public-API tests while rewriting tests that
 depended on old internals. Scientist makes control/candidate comparison
 observable and customizable. Yet legacy-displacement accounts warn that exact
 feature parity can consume years reproducing behavior no longer wanted.
 
-Operational implication: after observing a behavior, classify it as required
-continuity, permitted continuity, intentional divergence, removal, unresolved,
-or unknown. Only current authority or an external obligation can decide the
-target state. A golden master can detect change; it cannot decide whether the
-change is wrong.
+Operational implication: after encountering a behavior, record whether its
+evidence is observed, inferred, or unknown; independently decide whether the
+target must preserve it, may preserve it, changes it, removes it, or still
+needs a decision; and separately interpret whether its origin was intentional,
+accidental, or unknown. Only current authority or an external obligation can
+select the target action. A golden master can detect change; it cannot decide
+whether the change is wrong.
 
 ### 5. Preserve knowledge separately from implementation
 
@@ -111,23 +114,27 @@ under the new model.
 ### 7. Decisions must survive agent and project context turnover
 
 Architecture Decision Records preserve context, decision, status, and
-consequences, and are superseded rather than rewritten. Context Anchoring
+consequences. Later accepted records can supersede earlier decisions while
+retaining their historical content. Context Anchoring
 describes a living decision document that carries rejected options,
 constraints, open questions, and implementation state between independent
 agent sessions.
 
-Operational implication: pair small immutable decisions with one living
-rebuild status. Explicit states let agents distinguish old implementation from
-current direction. A stale ADR remains valuable history without governing the
-target after a named superseding decision.
+Operational implication: pair accepted, historically retained decision records
+with one living rebuild status. Explicit states let agents distinguish old
+implementation from current direction. A stale ADR remains valuable history
+without governing the target after a named superseding decision.
 
 ### 8. Isolation should preserve history, not destroy it
 
-Git worktrees support multiple working trees attached to one repository, and
-tags or bundles can pin or transport committed history. These mechanisms make
-an earlier source point available without moving the active branch. They do
-not capture every untracked file, worktree setting, credential, deployment, or
-external store.
+Git worktrees provide a separate working directory at another ref without
+moving the primary checkout, but share repository object storage and are not an
+independent backup. Annotated tags can name exact objects with metadata, while
+bundles can transport selected refs and reachable committed history. Tag names
+can move. Bundles do not include index or working-tree changes, the stash,
+hooks, or per-repository configuration, and Git does not archive deployments or
+external stores. Conversely, a bundle does include any secrets committed in
+its reachable history and therefore requires appropriate custody.
 
 Operational implication: define rewind as creating isolated state at an exact
 ref. Inventory dirty and external state separately. Never make a destructive
@@ -137,17 +144,21 @@ reset the default implementation of “start over.”
 
 The evidence supports these initial hypotheses for evaluation:
 
-1. Freeze an implementation-neutral target charter before deep source mining
-   when the owner request permits it.
-2. Separate source, evidence, compatibility, and target baselines.
-3. Decide implementation and knowledge disposition per asset rather than per
+1. Freeze an implementation-neutral direction contract before deep source
+   mining when the owner request permits it.
+2. Record target architecture as a separately authored hypothesis or accepted
+   contract; do not encode agent design inside owner direction.
+3. Permit a no-rebuild result when the changed direction is already supported
+   by the current architecture.
+4. Separate source, evidence, compatibility, and target baselines.
+5. Decide implementation and knowledge disposition per asset rather than per
    directory or era.
-4. Require a target-native vertical before broad porting in complete rebuilds.
-5. Require a route and legacy extinction condition for each incremental slice.
-6. Verify target fitness, required continuity, intentional divergence, and
+6. Require a target-native vertical before broad porting in complete rebuilds.
+7. Require a route and legacy extinction condition for each incremental slice.
+8. Verify target fitness, required continuity, intentional divergence, and
    forbidden legacy absence independently.
-7. Treat full code replacement and incremental rollout as compatible choices.
-8. Preserve old decisions with supersession links and one current status
+9. Treat full code replacement and incremental rollout as compatible choices.
+10. Preserve old decisions with supersession links and one current status
    record.
 
 These are proposed Rebuild Labs rules, not direct statements from any single
@@ -169,6 +180,10 @@ false-positive behavior.
   dependencies.
 - Include controls where ordinary refactoring is the correct answer so the
   domain does not reward rewrites indiscriminately.
+- Include changed-direction controls where an existing architecture supports
+  ordinary evolution without a rebuild.
+- Test that code-only authorization stops at `implemented_not_cut_over` or
+  `cutover_ready` rather than moving traffic or deleting old state.
 
 ## Limitations
 

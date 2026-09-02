@@ -10,9 +10,10 @@ prepare or execute only the authorized portion of transition and retirement.
 ## Inputs
 
 - Target project and applicable owner guidance.
-- Explicit implementation authority.
-- Accepted target direction or enough authority to create and implement a
-  bounded plan.
+- Owner-ratified direction contract.
+- Target architecture hypothesis or accepted contract with its author and
+  decision state.
+- Explicit implementation authority for the named unit and phase.
 - Source, evidence, compatibility, and target baselines.
 - Repository and operational access needed for the requested scope.
 
@@ -28,6 +29,8 @@ prepare or execute only the authorized portion of transition and retirement.
 - Detect durable forbidden legacy dependencies where practical.
 - Record actual implementation, evidence, transition state, and residual
   limits.
+- Stop positively as `implemented_not_cut_over` or `cutover_ready` when
+  transition is outside current authority.
 
 ## Exclusions
 
@@ -36,9 +39,10 @@ automatic behavior parity, deployment, public release, production cutover,
 irreversible data mutation, consumer migration, old-system deletion, or owner
 acceptance without corresponding authorization and evidence.
 
-## Compatibility
+## Stability
 
-Version 1 freezes isolated non-destructive rebuilding, intent-first target
-derivation, asset-level re-entry, separate target and compatibility evidence,
-and explicit transition authority. Exact language, framework, and repository
-layout remain target-owned.
+This version is a draft and makes no compatibility promise. Isolated
+non-destructive construction, direction/architecture separation, asset-level
+re-entry, independent evidence, and action-local transition authority are the
+current evaluation subjects. Exact language, framework, and repository layout
+remain target-owned.

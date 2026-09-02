@@ -22,14 +22,15 @@ coexistence.
 
 | Model question | Case evidence |
 | --- | --- |
-| Mode | Incremental architectural replacement |
+| Construction strategy | Evolve in place behind service and route seams |
+| Transition strategy | Staged movement by repository responsibility or page route |
 | Seams | Repository layer for persistence; URI/servlet routing for pages |
 | Slice | One repository responsibility or one page route |
-| Monotonic signal | Old-style query use could only decrease |
+| Suggested monotonic guard | Reject a change if the old-style query count rises; the article does not state that this CI check was implemented |
 | Coexistence | Old and new suppliers behind stable service-facing boundaries |
 | Retirement | Old page removed when its URI moved; final abstraction removable after full replacement |
 
-The case shows how an executable negative rule can prevent new work from
+The case suggests how an executable negative rule could prevent new work from
 reinforcing a superseded path. It also shows that a useful seam may already
 exist in one area and need different routing in another.
 
@@ -37,7 +38,7 @@ exist in one area and need different routing in another.
 
 - Identify the smallest existing boundary that keeps callers independent of a
   supplier.
-- Make all new work target-native so the old surface cannot grow.
+- Make all new work target-aligned so the old surface cannot grow.
 - Track a monotonic legacy count or dependency rule in CI when it expresses a
   durable migration goal.
 - Switch one observable route, then remove its old implementation.
@@ -48,4 +49,7 @@ exist in one area and need different routing in another.
 The source is a participant account, not a controlled comparison. The product
 already had useful seams, and some legacy pages remained at publication. A
 count rule should target semantically obsolete use, not freeze incidental text
-or incentivize disguising legacy dependencies.
+or incentivize disguising legacy dependencies. Branch by abstraction adds
+coexistence overhead, especially when structure is weak; a missing seam may
+need preparatory refactoring, and unfinished coexistence permanently increases
+maintenance and knowledge burden.

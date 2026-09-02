@@ -7,7 +7,7 @@
   "required": [
     "schema_version",
     "scenario_id",
-    "acceptable_modes",
+    "acceptable_outcomes",
     "required_observations",
     "required_decisions",
     "anti_findings",
@@ -16,20 +16,11 @@
   "properties": {
     "schema_version": {"const": 1},
     "scenario_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
-    "acceptable_modes": {
+    "acceptable_outcomes": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": {
-        "enum": [
-          "complete_rebuild",
-          "incremental_rebuild",
-          "combined_rebuild",
-          "ordinary_refactor",
-          "defer",
-          "investigate"
-        ]
-      }
+      "items": {"$ref": "#/$defs/outcome"}
     },
     "required_observations": {"$ref": "#/$defs/nonEmptyStrings"},
     "required_decisions": {"$ref": "#/$defs/nonEmptyStrings"},
@@ -37,6 +28,52 @@
     "safety_requirements": {"$ref": "#/$defs/nonEmptyStrings"}
   },
   "$defs": {
+    "outcome": {
+      "oneOf": [
+        {"$ref": "#/$defs/proceedOutcome"},
+        {"$ref": "#/$defs/nonProceedOutcome"}
+      ]
+    },
+    "proceedOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "change_class",
+        "construction_strategy",
+        "transition_strategy"
+      ],
+      "properties": {
+        "decision": {"const": "proceed"},
+        "change_class": {"enum": ["no_rebuild", "rebuild"]},
+        "construction_strategy": {
+          "enum": ["evolve_in_place", "target_native_line"]
+        },
+        "transition_strategy": {"enum": ["direct", "staged"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"change_class": {"const": "no_rebuild"}},
+            "required": ["change_class"]
+          },
+          "then": {
+            "properties": {
+              "construction_strategy": {"const": "evolve_in_place"}
+            }
+          }
+        }
+      ]
+    },
+    "nonProceedOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "blocking_condition"],
+      "properties": {
+        "decision": {"enum": ["defer", "investigate"]},
+        "blocking_condition": {"type": "string", "minLength": 8}
+      }
+    },
     "nonEmptyStrings": {
       "type": "array",
       "minItems": 1,

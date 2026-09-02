@@ -11,7 +11,8 @@ The bootstrap is a **domain module with an experimental capability bundle**:
 - shared direction, baseline, asset, evidence, and decision vocabulary;
 - complete and incremental human playbooks;
 - an initial primary-source research synthesis;
-- narrow evaluation cases designed to challenge both mode-selection errors;
+- narrow evaluation cases designed to challenge no-rebuild, construction, and
+  transition-selection errors;
   and
 - canonical planning and implementation skills with a generated experimental
   Codex adapter.

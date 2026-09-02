@@ -22,4 +22,4 @@ interpretation, and proposed operational guidance.
 Every synthesis should state its status and date, search or selection method,
 claim boundaries, competing evidence, and practical implications. A published
 success story can demonstrate a possible technique but rarely exposes all
-costs or establishes that the same mode fits another system.
+costs or establishes that the same strategy fits another system.

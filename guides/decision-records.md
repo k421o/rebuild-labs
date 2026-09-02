@@ -7,9 +7,12 @@ architecture story.
 
 ## Keep decision state explicit
 
-Use the states in the [domain charter](../docs/domain-charter.md): observation,
-hypothesis, owner-ratified direction, planned rebuild, implemented slice,
-verified slice, cut over, retired, and superseded.
+Use the canonical record identifiers in the
+[domain charter](../docs/domain-charter.md): `observation`, `hypothesis`,
+`owner_ratified_direction`, `target_architecture_hypothesis`,
+`target_architecture_accepted`, `implementation_authorized`, `planned`,
+`implemented_not_cut_over`, `verified`, `cutover_ready`, `cut_over`, `retired`,
+`invalidated`, and `superseded`.
 
 Each record should name:
 
@@ -28,11 +31,16 @@ preventing prior implementation from impersonating current authority.
 
 ## Minimum packet
 
-### Target charter
+### Direction contract
 
 Records the current outcome, constraints, non-goals, required continuity,
-allowed breaks, target boundaries, forbidden inheritance, acceptance evidence,
-and deciding authority.
+allowed breaks, acceptance evidence, and deciding authority.
+
+### Target architecture record
+
+Records target responsibilities, ownership, dependency direction, forbidden
+inheritance, alternatives, evidence, author, and hypothesis or accepted state.
+Acceptance of this record is not implementation or transition authority.
 
 ### Baseline record
 
@@ -42,9 +50,11 @@ rationale.
 
 ### Behavior matrix
 
-For each user-, operator-, protocol-, or data-visible behavior, records the
-source evidence and target state: preserve, permit, intentionally change,
-remove, unresolved, or unknown.
+For each user-, operator-, protocol-, or data-visible behavior, separately
+records evidence state (`observed`, `inferred`, `unknown`), target action
+(`preserve_required`, `preserve_optional`, `change`, `remove`, `unresolved`),
+origin interpretation (`intentional`, `accidental`, `unknown`), and authority
+state.
 
 ### Asset disposition ledger
 
@@ -54,8 +64,10 @@ decision state, destination, and verification.
 
 ### Execution and verification plan
 
-Names rebuild units, modes, vertical slices, dependency order, data and
-consumer movement, coexistence, target gates, compatibility gates, intentional
+Names rebuild units, proceed/defer/investigate decisions, change class,
+construction and transition strategies,
+authorized phases, vertical slices, dependency order, data and consumer
+movement, coexistence, target gates, compatibility gates, intentional
 divergence checks, negative architecture checks, and stopping conditions.
 
 ### Cutover and retirement receipt
@@ -63,6 +75,10 @@ divergence checks, negative architecture checks, and stopping conditions.
 Records what actually moved, exact revisions, data and consumer state,
 observation window, acceptance, remaining recovery scope, removed temporary
 architecture, retained legacy islands, and follow-up owners.
+
+The plan and receipt name separate authority for deployment, traffic or
+consumer movement, external data writes and reconciliation, stopping old
+writes, schema contraction, and code or resource deletion.
 
 ## Avoid ambient stale guidance
 

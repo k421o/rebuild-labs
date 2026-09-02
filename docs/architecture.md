@@ -11,6 +11,9 @@ Target owner direction                    Pinned system evidence
           |                                        |
           +----------------+-----------------------+
                            v
+          Target-architecture hypothesis / contract
+                           |
+                           v
                  Rebuild domain model
           direction gap / baselines / dispositions
                            |
@@ -27,8 +30,10 @@ Target owner direction                    Pinned system evidence
                  Generated host adapters
 ```
 
-The left input authorizes the destination. The right input constrains factual
-claims about the system. Neither alone decides how to rebuild it.
+The left input authorizes outcomes and constraints. The right input constrains
+factual claims about the system. The architecture between them is a proposal
+until the target project's authority accepts it; acceptance still does not
+authorize implementation, cutover, data mutation, or deletion.
 
 ## Artifact classes
 
@@ -47,26 +52,32 @@ claims about the system. Neither alone decides how to rebuild it.
 The shared core owns:
 
 - target-direction and architectural-discontinuity vocabulary;
+- direction-contract, architecture-hypothesis, and authorization states;
 - source, evidence, compatibility, and target baselines;
 - asset units and disposition decisions;
 - rebuild record states and supersession;
 - safety, authority, and verification boundaries; and
-- criteria for selecting complete rebuild, incremental rebuild, ordinary
-  refactor, defer, or further investigation.
+- criteria for proceeding, deferring, or investigating and, when proceeding,
+  selecting no rebuild or rebuild plus independent construction and transition
+  strategies.
 
-The complete module owns the protocol for an isolated new implementation line.
+The complete module owns target-native construction on an isolated new line.
 It can begin from an empty tree, the beginning of the project, or a selected
 stable revision. The old tree remains an evidence source and salvage quarry,
 not the implicit skeleton.
 
-The incremental module owns the protocol for replacing behavior through seams
-and vertical slices while old and new paths coexist. It requires explicit
-routing, compatibility, observation, and retirement conditions so “temporary”
-dual architecture does not become permanent.
+For the `rebuild` change class, the incremental module owns evolve-in-place
+construction and staged transition through seams and vertical slices while old
+and new paths coexist. It requires explicit routing, compatibility,
+observation, action-local authority, and retirement conditions so “temporary”
+dual architecture does not become permanent. Staged delivery of ordinary
+no-rebuild work does not enter this module automatically.
 
-The modules may share a target charter, baseline record, disposition ledger,
-and verification matrix. A project may switch modes or use both at different
-boundaries, but the record must say which unit each decision covers.
+The modules share a direction contract, architecture record, baselines,
+disposition ledger, and verification matrix. A unit may use the complete module
+to construct a target-native core and the incremental module to transition to
+it in stages. The record names change class, construction, and transition per
+unit instead of hiding this composition behind one “mode.”
 
 ## Dependency rules
 
@@ -88,14 +99,17 @@ Inspection order affects agent anchoring. The default sequence is:
 
 1. Read applicable owner instructions and the explicit direction-change
    request.
-2. Draft the target charter in implementation-neutral terms.
+2. Draft the direction contract in implementation-neutral terms.
 3. Record known external contracts and acceptance conditions.
-4. Inspect repository topology, Git state, releases, data boundaries, and
+4. Propose target responsibilities and dependency direction as an explicitly
+   authored architecture hypothesis.
+5. Inspect repository topology, Git state, releases, data boundaries, and
    operational surfaces.
-5. Inspect implementation details to test the charter, find constraints, and
-   classify assets.
-6. Amend the charter when new evidence reveals a real constraint, recording
-   the source and decision rather than silently conforming to existing code.
+6. Inspect implementation details to test the direction and hypothesis, find
+   constraints, and classify assets.
+7. Amend the direction only through its authority; revise or accept the
+   architecture through its own decision state. Record the evidence rather
+   than silently conforming either artifact to existing code.
 
 This is not a ban on reading code. It is a way to keep code discovery from
 quietly rewriting the owner's target before the difference is visible.
