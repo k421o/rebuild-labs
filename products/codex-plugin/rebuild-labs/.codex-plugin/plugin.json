@@ -1,0 +1,22 @@
+{
+  "name": "rebuild-labs",
+  "version": "0.1.0-dev.1",
+  "description": "Experimental planning and implementation capabilities for direction-led software rebuilds",
+  "author": {
+    "name": "k421o"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Rebuild Labs (Experimental)",
+    "shortDescription": "Plan and implement evidence-backed project rebuilds.",
+    "longDescription": "An experimental Codex adapter for Rebuild Labs planning, complete-rebuild, and incremental-rebuild capabilities.",
+    "developerName": "k421o",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Use $rebuild-labs:rebuild-plan to determine whether rebuilding is warranted and prepare a strategy.",
+      "Use $rebuild-labs:rebuild-complete to implement an authorized target-native construction phase.",
+      "Use $rebuild-labs:rebuild-incremental to implement an authorized in-place construction or staged transition."
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Complete Rebuild"
+  short_description: "Implement a target-native complete rebuild."
+  default_prompt: "Use $rebuild-complete to rebuild this project around its accepted new direction."
