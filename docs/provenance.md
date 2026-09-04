@@ -12,11 +12,14 @@ The initial requested split was:
 2. rebuilding incrementally through controlled replacement.
 
 The repository shape was adapted from
-[`k421o/readme-labs`](https://github.com/k421o/readme-labs), inspected at
-commit `0562a5bc703621c8da791dc738302eb920b956c5`. That project supplies a
-structural precedent—domain charter, research, shared contracts, evaluation,
+[`k421o/readme-labs`](https://github.com/k421o/readme-labs). That project supplies
+a structural precedent—domain charter, research, shared contracts, evaluation,
 canonical capabilities, and generated products—not authority for the rebuild
 model or its conclusions.
+
+The bootstrap recorded `0562a5bc703621c8da791dc738302eb920b956c5` as the inspected
+revision. On 2026-09-04 that identity did not resolve in the fetched repository
+or GitHub's commit API (HTTP 404). The exact inspected revision is unverified.
 
 The initial semantic model was also checked against the local boundary of
 [`k421o/provenance-labs`](https://github.com/k421o/provenance-labs). Provenance

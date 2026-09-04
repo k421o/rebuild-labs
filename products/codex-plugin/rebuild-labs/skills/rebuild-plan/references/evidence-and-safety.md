@@ -58,6 +58,11 @@ grants. Check authority for the exact action, unit, environment, and phase. A
 request to implement code does not silently authorize transition, and target
 acceptance does not silently authorize retirement.
 
+Use authorization already supplied by the current user request, including
+delegated technical decisions and instruction-file edits within its scope.
+Separate decision states do not require separate approval prompts or records.
+Ask only when a consequential decision or action remains outside that scope.
+
 State exactly what “rollback” can restore. After target-only writes or external
 consumer changes, forward recovery or compensation may be more realistic than
 returning to an earlier binary.

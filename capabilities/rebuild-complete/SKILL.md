@@ -9,23 +9,19 @@ Build a target-native implementation line without making the current tree its
 implicit skeleton. Preserve history and user work, mine the old system for
 evidence, and admit assets only when they serve the current direction.
 
-## Required planning source
+## Planning context
 
-Before implementation, read the sibling
-[`rebuild-plan` skill](../rebuild-plan/SKILL.md) completely and read every file
-in its [`references/`](../rebuild-plan/references/) directory. Use its
-direction, architecture, baseline, disposition, evidence, safety, and record
-behavior as the installed planning contract.
-
-If no accepted rebuild packet exists, or construction and transition have not
-been selected independently, perform the gateway workflow first. Do not treat
-your own plan as owner ratification or architecture acceptance when the
-direction, allowed breaks, or technical contract still require a decision.
+Use the direction, strategy, and authorization already supplied by the current
+request or accepted plan. Resolve missing decisions with
+[`rebuild-plan`](../rebuild-plan/SKILL.md); a separate accepted packet is not a
+prerequisite when those decisions are settled. Consult its linked references
+for the phase at hand instead of reading the full planning bundle again.
+Keep unresolved product choices visible and respect delegated technical choices.
 
 ## Authorization and isolation
 
-- Confirm that the user requested implementation, not only diagnosis or a
-  recommendation.
+- Establish implementation scope from the existing user request. Reconfirm
+  only when a consequential action falls outside that scope.
 - Pin the authorized unit and phase, phase success boundary, halt or recovery
   threshold, and conditions that invalidate the plan or require a strategy
   switch. Permission for one vertical does not authorize all planned slices.
@@ -129,5 +125,5 @@ unit tests pass. Report separately:
 - Do not describe an unexercised migration, rollback, or cutover as verified.
 - Do not infer architecture acceptance from direction ratification or infer
   cutover, data, contraction, or deletion authority from implementation access.
-- Do not change instruction-policy files unless the relevant owner explicitly
-  authorized that exact named-file change.
+- Keep instruction-file changes within the user's authorized task. Do not add
+  standing policy merely because the rebuild suggests a useful rule.

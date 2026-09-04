@@ -7,20 +7,20 @@
     {
       "destination": "skills/rebuild-plan",
       "source": "capabilities/rebuild-plan",
-      "source_revision": "f3afc01102156b40d87382aed07b3eb9aec4ab6f",
-      "source_sha256": "a354cb428c654b1b196077769d0cd89f22d24418e14760d757b8a78cb920777a"
+      "source_revision": "40e1250f1cbc9a79095b95cabf93eabd398e75ff",
+      "source_sha256": "1f096791017251df92816946676c0e9353283343fa0a7382fe832959040ee7bd"
     },
     {
       "destination": "skills/rebuild-complete",
       "source": "capabilities/rebuild-complete",
-      "source_revision": "f3afc01102156b40d87382aed07b3eb9aec4ab6f",
-      "source_sha256": "f33718a2c0ed47d4b1a5cdb00890414f86902db966819528b42d3aaac7e9f91e"
+      "source_revision": "40e1250f1cbc9a79095b95cabf93eabd398e75ff",
+      "source_sha256": "c019a3f43780e107898774578c6edc707c9f5382e1cae473e7acf0050c966d5c"
     },
     {
       "destination": "skills/rebuild-incremental",
       "source": "capabilities/rebuild-incremental",
-      "source_revision": "f3afc01102156b40d87382aed07b3eb9aec4ab6f",
-      "source_sha256": "124664f965f535a4ef6a9b9fedc31a38e17c05883e343c4a636b9a1471455201"
+      "source_revision": "40e1250f1cbc9a79095b95cabf93eabd398e75ff",
+      "source_sha256": "a7cb005dc63dbf5be72e896f0cd1259661029efcb8c8df2e76afa956962450ba"
     }
   ]
 }

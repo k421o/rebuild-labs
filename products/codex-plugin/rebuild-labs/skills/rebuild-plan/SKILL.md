@@ -9,20 +9,23 @@ Determine whether the project has a genuine direction discontinuity, then
 produce an evidence-backed plan that lets the target direction govern the new
 architecture without erasing useful behavior or knowledge.
 
-## Required domain sources
+## Domain references
 
-Before planning, read every file in this skill's
-[`references/`](references/) directory. They are installed projections of the
-canonical Rebuild Labs domain and carry the direction, architecture, baseline,
-asset, evidence, safety, and rebuild-record behavior needed by all three
-skills.
+Use [direction and baselines](references/direction-and-baselines.md) when
+classifying a possible rebuild, [asset dispositions](references/asset-dispositions.md)
+when selecting legacy material, and [evidence and safety](references/evidence-and-safety.md)
+for repository or external-state transitions. Read the
+[packet template](references/rebuild-packet-template.md) only when a durable
+record is requested and useful. Reuse context already established in this task.
 
 ## Mutation boundary
 
 Planning is read-only by default. Inspect files, history, manifests, tests,
-releases, and safe operational evidence as authorized, but do not edit the
-target, create branches or worktrees, install dependencies, change external
-state, or begin the rebuild unless the user explicitly requests that action.
+releases, and safe operational evidence. A planning-only request does not
+authorize implementation or external changes. An implementation request may
+already authorize routine preparation, isolated worktrees, dependency setup,
+and relevant instruction-file edits within its scope; do not ask again for
+each step or filename.
 
 If the user asks to write the plan into the target repository, resolve the
 authorized path and applicable instructions before editing. A request to
@@ -68,34 +71,18 @@ request itself as implementation authority.
    security boundaries, build and test surfaces, and relevant history. Pin
    evidence to revisions or dates. Record dirty and untracked work without
    exposing sensitive content.
-7. **Map inherited assumptions.** Identify assumptions about product job,
-   domain model, state ownership, trust, runtime, deployment, interfaces,
-   extension model, and dependency direction. Classify each as aligned,
-   isolatable, conflicting, obsolete, or unknown relative to the direction
-   contract and architecture hypothesis.
-8. **Separate baseline roles.** Name current and historical evidence baselines,
-   required compatibility baselines, and the target acceptance baseline. For
-   target-native construction, compare and select source-baseline candidates;
-   for evolve-in-place construction, record the source baseline as not
-   applicable rather than inventing a rewind. Never let one commit silently
-   stand for several roles.
-9. **Build the behavior matrix.** For material behavior, record evidence state
-   (`observed`, `inferred`, `unknown`), target action (`preserve_required`,
-   `preserve_optional`, `change`, `remove`, `unresolved`), origin
-   interpretation (`intentional`, `accidental`, `unknown`), and authority
-   state. Characterization describes the old system; it does not decide the
-   target.
-10. **Classify assets.** Apply the asset-level re-entry gate from
-   [asset dispositions](references/asset-dispositions.md). Select salvage,
-   refactor, re-derive, quarantine, or discard for implementation, and record
-   knowledge retention independently.
-11. **Choose transformation per unit.** First choose `proceed`, `defer`, or
+7. **Map material conflicts and reuse.** Separate observed behavior from
+   required continuity and deliberate changes. Use the baseline and asset
+   references for consequential source, compatibility, transfer, and knowledge
+   decisions. Group assets with the same rationale; do not create a row for
+   every file or reproduce facts already established by the current request.
+8. **Choose transformation per unit.** First choose `proceed`, `defer`, or
     `investigate`. When proceeding, choose change class (`no_rebuild` or
     `rebuild`), construction (`evolve_in_place` or `target_native_line`), and
     transition (`direct` or `staged`) independently. Test the recommendation
     against seam quality, hidden consumers, data reversibility, operational
     risk, and a credible first vertical.
-12. **Design execution and evidence.** For each rebuild unit, define the
+9. **Design execution and evidence.** For each rebuild unit, define the
     authorized unit and phase, phase success boundary, target-aligned vertical
     slices, dependency order, target-fitness tests, compatibility tests,
     intentional divergence checks, negative legacy-dependency checks, data and
@@ -103,7 +90,7 @@ request itself as implementation authority.
     boundaries, legacy retirement, invalidation triggers, and stopping
     conditions. Require target-native verticals when construction is
     `target_native_line`.
-13. **Challenge both biases.** Ask whether the plan carries the old
+10. **Challenge both biases.** Ask whether the plan carries the old
     architecture forward because it is familiar, and whether it proposes a
     clean-slate system that ignores real constraints or solves speculative
     problems. Revise only from evidence or an owner decision.

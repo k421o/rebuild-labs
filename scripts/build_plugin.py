@@ -161,7 +161,7 @@ def _skill_entries(skills_root: Path) -> set[str]:
 def sync_generated_skills(
     capability_sources: tuple[tuple[str, Path], ...], skills_root: Path
 ) -> None:
-    """Replace the generated surface atomically at the capability-set level."""
+    """Replace the regenerable skill tree; interruption requires rebuilding it."""
 
     _validate_capability_sources(capability_sources)
     if skills_root.is_symlink():
