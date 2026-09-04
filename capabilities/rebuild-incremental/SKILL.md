@@ -10,23 +10,19 @@ seams and vertical slices. Make coexistence observable and bounded, give every
 slice a retirement condition, and require actual retirement for a fully
 transitioned slice without forcing it into a code-only phase.
 
-## Required planning source
+## Planning context
 
-Before implementation, read the sibling
-[`rebuild-plan` skill](../rebuild-plan/SKILL.md) completely and read every file
-in its [`references/`](../rebuild-plan/references/) directory. Use its
-direction, architecture, baseline, disposition, evidence, safety, and record
-behavior as the installed planning contract.
-
-If no accepted rebuild packet exists, or construction and transition have not
-been selected independently, perform the gateway workflow first. Keep owner
-direction, architecture hypothesis and acceptance, implementation authority,
-verification, cutover, data mutation, deletion, and retirement in distinct
-decision states.
+Use the direction, strategy, and authorization already supplied by the current
+request or accepted plan. Resolve missing decisions with
+[`rebuild-plan`](../rebuild-plan/SKILL.md); a separate accepted packet is not a
+prerequisite when those decisions are settled. Consult its linked references
+for the phase at hand instead of reading the full planning bundle again.
+Keep unresolved product choices visible and respect delegated technical choices.
 
 ## Authorization and preservation
 
-- Confirm implementation is requested.
+- Establish implementation scope from the existing user request. Reconfirm
+  only when a consequential action falls outside that scope.
 - Pin the authorized unit and phase, phase success boundary, halt or recovery
   threshold, and invalidation or strategy-switch conditions. Authority for one
   slice is not authority for every planned slice.
@@ -106,15 +102,6 @@ store, or fallback introduced for coexistence must record:
 Do not call indefinite compatibility “temporary.” If a legacy island must
 remain, convert it into an explicit current boundary with an owner and contract.
 
-## Action-local authority
-
-Check authority immediately before each deployment, traffic or consumer move,
-external data write/backfill/reconciliation, stopping old writes, canonical
-ownership transfer, schema contraction, code deletion, or external-resource
-deletion. Record the exact unit, environment, operation, and phase. A broad
-request to edit code and a target acceptance decision authorize none of these
-implicitly.
-
 ## Completion behavior
 
 The invocation completes at its authorized phase boundary. A code-only phase
@@ -154,5 +141,5 @@ Report:
   forbidden dependency remains.
 - Do not infer transition, data, contraction, or deletion authority from
   implementation access or target acceptance.
-- Do not change instruction-policy files unless the relevant owner explicitly
-  authorized that exact named-file change.
+- Keep instruction-file changes within the user's authorized task. Do not add
+  standing policy merely because the rebuild suggests a useful rule.

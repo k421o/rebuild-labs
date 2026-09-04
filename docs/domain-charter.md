@@ -168,6 +168,11 @@ Records distinguish at least these states:
 A merged pull request, passing test, or agent-authored plan does not silently
 advance an owner-controlled state.
 
+Use authorization already supplied by the current user request, including
+delegated technical decisions and instruction-file edits within its scope.
+Separate decision states do not require separate approval prompts or records.
+Ask only when a consequential decision or action remains outside that scope.
+
 ## Canonical ownership
 
 `rebuild-labs` owns the editable rebuild-domain vocabulary, research

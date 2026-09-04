@@ -88,8 +88,8 @@ writes, schema contraction, and code or resource deletion.
   readers infer current behavior from a migration diary.
 - Keep historical explanations in decision or migration records rather than
   scattering “formerly” notes through current interfaces.
-- Do not edit an instruction-policy file merely because the rebuild revealed a
-  useful rule. Route that exact change to the authority that owns the file.
+- Keep instruction-file edits within the current user's authorized scope; do
+  not turn a useful observation into unsolicited standing policy.
 - Keep one status view that points to detailed records; multiple independent
   “current plan” documents create a new provenance problem.
 
