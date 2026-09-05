@@ -11,6 +11,21 @@ The repository's installable skills are applications of that work. They are
 not the authority for a target project's direction, and they do not turn a
 request for ordinary refactoring into permission to rewrite a codebase.
 
+## Repository map
+
+```text
+.
+├── domain/        # Change the shared model here so both rebuild strategies agree.
+├── research/      # Keep case evidence distinct from general recommendations.
+├── guides/        # Explain how to apply the model to a target project.
+├── capabilities/  # Edit agent-facing guidance here, using the domain and guides.
+├── evals/         # Keep held-out expectations separate from agent-visible fixtures.
+├── products/      # Generate packaged skills from capabilities; do not edit copies.
+├── docs/          # Explain repository boundaries and record release context.
+├── scripts/       # Keep packaging and repository validation entrypoints here.
+└── tests/         # Check contracts and tooling; review quality needs evaluations.
+```
+
 ## The problem
 
 Coding agents are rewarded for making the next change fit the repository in
@@ -103,20 +118,6 @@ data mutation, and deletion decisions.
 - Architecture acceptance, implementation, traffic movement, consumer change,
   data writes, schema contraction, deletion, and publication are distinct
   grants; an agent-generated plan is not any of them.
-
-## Project layout
-
-```text
-domain/         Rebuild vocabulary, records, dispositions, and strategy selection
-research/       Findings, primary sources, case studies, and limitations
-guides/         Complete and incremental rebuild playbooks
-capabilities/   Canonical agent-facing projections of the domain work
-evals/          Controlled direction-change scenarios and held-out expectations
-products/       Generated installation adapters for evaluated capabilities
-docs/           Charter, architecture, provenance, and release records
-scripts/        Deterministic repository and packaging validation
-tests/          Domain, capability, evaluation, and adapter contract checks
-```
 
 Directories are added only when current work justifies them. Rebuild Labs does
 not begin as a migration platform, a code-transformation framework, or a store
